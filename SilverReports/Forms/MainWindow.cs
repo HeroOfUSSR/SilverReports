@@ -108,6 +108,10 @@ namespace SilverReports
         {
             var addCheck = new AddCheckForm();
             addCheck.ShowDialog();
+            if (addCheck.DialogResult == DialogResult.OK)
+            {
+                InitDatagrid();
+            }
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)

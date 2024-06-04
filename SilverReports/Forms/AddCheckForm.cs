@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace SilverReports.Forms
 {
@@ -30,6 +31,14 @@ namespace SilverReports.Forms
                 comboBoxType.DisplayMember = nameof(SilverType.Title_SilverType);
                 comboBoxDecimal.DisplayMember = nameof(DecimalNumber.Title_Decimal);
 
+                comboBoxDepart.ValueMember = nameof(Department.Code_Department);
+                comboBoxType.ValueMember = nameof(SilverType.Code_SilverType);
+                comboBoxDecimal.ValueMember = nameof(DecimalNumber.ID_Decimal);
+
+                comboBoxDecimal.SelectedValue = 0;
+                comboBoxDepart.SelectedValue = 0;
+                comboBoxType.SelectedValue = 0;
+
             }
         }
 
@@ -38,17 +47,33 @@ namespace SilverReports.Forms
             buttonAdd.Text = "Редактировать";
             Text = "Редактирование чека";
 
-            maskedTextBoxCover.Text = check.Norm_Check.ToString();
+            maskedTextBoxNorm.Text = check.Norm_Check.ToString();
             textBoxNumber.Text = check.Number_Check;
-            comboBoxDepart.SelectedItem = check.Department_Check;
-            comboBoxType.Text = check.SilverType_Check.ToString();
-            comboBoxDecimal.SelectedItem = check.Decimal_Check;
             maskedTextBoxCover.Text = check.Coverage_Check.ToString();
             numericUpDownAmount.Value = Convert.ToDecimal(check.Amount_Check);
             textBoxOrder.Text = check.Order_Check;
+
+            
+
+            if (check.Date_Check != null)
+            {
+                dtCheck.Value = (DateTime)check.Date_Check;
+            }
             //dtCheck.Value = check.Date_Check;
 
             editCheck = check;
+
+            var index = comboBoxDepart.FindString(editCheck.Department_Check.ToString());
+
+            comboBoxDepart.SelectedIndex = index;
+
+            index = comboBoxType.FindString(editCheck.SilverType_Check.ToString());
+
+            comboBoxType.SelectedIndex = index;
+
+            index = comboBoxDecimal.FindString(editCheck.Decimal_Check.ToString());
+
+            comboBoxDecimal.SelectedIndex = index;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -63,7 +88,7 @@ namespace SilverReports.Forms
                     editCheck.Decimal_Check = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
                     editCheck.Coverage_Check = Convert.ToDecimal(maskedTextBoxCover.Text);
                     editCheck.SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
-                    editCheck.Department_Check = Convert.ToInt32(comboBoxDepart.SelectedItem);
+                    editCheck.Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department;
                     editCheck.Amount_Check = Convert.ToInt32(numericUpDownAmount.Value);
 
                     //db.Check.Update(editCheck);
@@ -96,7 +121,7 @@ namespace SilverReports.Forms
                     Check newCheck = new Check
                     {
                         Date_Check = dtCheck.Value,
-                        Department_Check = Convert.ToInt32(comboBoxDepart.SelectedItem),
+                        Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department,
                         Number_Check = textBoxNumber.Text,
                         Norm_Check = Convert.ToDecimal(maskedTextBoxCover.Text),
                         SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType,

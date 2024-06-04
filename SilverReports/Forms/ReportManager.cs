@@ -116,12 +116,13 @@ namespace SilverReports.Forms
         {
             toolStripProgressReport.Visible = false;
             toolStripProgressReport.Style = ProgressBarStyle.Blocks;
-            var p = new Process();
+            Process.Start(fileName);
+            /*var p = new Process();
             p.StartInfo = new ProcessStartInfo(fileName)
             {
                 UseShellExecute = true
             };
-            p.Start();
+            p.Start();*/
         }
 
         public class WebDownload : WebClient

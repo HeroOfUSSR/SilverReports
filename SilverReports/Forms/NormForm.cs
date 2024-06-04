@@ -87,7 +87,31 @@ namespace SilverReports.Forms
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+            using (var db = new SilverREContext())
+            {
+                var selected = Convert.ToInt32(dgvNorm.Rows[dgvNorm.SelectedRows[0].Index].Cells[0].Value);
 
+                var deleteNorm = db.Norm.FirstOrDefault(x => x.ID_Norm == selected);
+
+                if (deleteNorm != null)
+                {
+                    DialogResult confirm;
+
+
+                    confirm = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
+
+
+                    if (confirm == DialogResult.OK)
+                    {
+                        db.Norm.Remove(deleteNorm);
+                        db.SaveChanges();
+
+                        InitDatagrid();
+                    }
+                }
+                else MessageBox.Show("Выберите запись для удаления");
+
+            }
         }
     }
 }

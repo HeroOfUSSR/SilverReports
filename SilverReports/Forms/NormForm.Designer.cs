@@ -50,7 +50,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(577, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(223, 450);
+            this.panel1.Size = new System.Drawing.Size(223, 365);
             this.panel1.TabIndex = 0;
             // 
             // dgvNorm
@@ -65,7 +65,7 @@
             this.dgvNorm.Name = "dgvNorm";
             this.dgvNorm.ReadOnly = true;
             this.dgvNorm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNorm.Size = new System.Drawing.Size(577, 450);
+            this.dgvNorm.Size = new System.Drawing.Size(577, 365);
             this.dgvNorm.TabIndex = 3;
             // 
             // buttonDelete
@@ -118,7 +118,7 @@
             // 
             this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonSearch.Location = new System.Drawing.Point(0, 20);
+            this.buttonSearch.Location = new System.Drawing.Point(0, 26);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(223, 39);
             this.buttonSearch.TabIndex = 9;
@@ -128,16 +128,17 @@
             // textBoxSearch
             // 
             this.textBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxSearch.Location = new System.Drawing.Point(0, 0);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(223, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(223, 26);
             this.textBoxSearch.TabIndex = 0;
             // 
             // NormForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 365);
             this.Controls.Add(this.dgvNorm);
             this.Controls.Add(this.panel1);
             this.Name = "NormForm";

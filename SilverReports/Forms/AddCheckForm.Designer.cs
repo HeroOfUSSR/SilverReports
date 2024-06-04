@@ -135,9 +135,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label5.Location = new System.Drawing.Point(45, 156);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 18);
+            this.label5.Size = new System.Drawing.Size(144, 18);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Норма";
+            this.label5.Text = "Площадь покрытия";
             // 
             // maskedTextBoxCover
             // 
@@ -151,6 +151,8 @@
             // 
             // comboBoxDecimal
             // 
+            this.comboBoxDecimal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxDecimal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxDecimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.comboBoxDecimal.FormattingEnabled = true;
             this.comboBoxDecimal.Location = new System.Drawing.Point(206, 213);

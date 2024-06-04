@@ -193,17 +193,17 @@
             // textBoxSearch
             // 
             this.textBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxSearch.Location = new System.Drawing.Point(0, 0);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(216, 24);
+            this.textBoxSearch.Size = new System.Drawing.Size(216, 26);
             this.textBoxSearch.TabIndex = 0;
             // 
             // buttonSearch
             // 
             this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonSearch.Location = new System.Drawing.Point(0, 24);
+            this.buttonSearch.Location = new System.Drawing.Point(0, 26);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(216, 39);
             this.buttonSearch.TabIndex = 9;
