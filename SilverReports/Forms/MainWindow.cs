@@ -14,7 +14,6 @@ namespace SilverReports
 {
     public partial class MainWindow : Form
     {
-        private string searchRequest;
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
         public MainWindow()
@@ -177,6 +176,11 @@ namespace SilverReports
                 else MessageBox.Show("Выберите запись для удаления");
 
             }
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            InitDatagrid();
         }
     }
 }

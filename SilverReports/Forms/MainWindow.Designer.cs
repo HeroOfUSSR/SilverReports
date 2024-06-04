@@ -209,6 +209,7 @@
             this.buttonSearch.TabIndex = 9;
             this.buttonSearch.Text = "Поиск";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // поЗаказамToolStripMenuItem
             // 
