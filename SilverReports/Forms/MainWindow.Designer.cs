@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonIncorrect = new System.Windows.Forms.Button();
+            this.buttonNorm = new System.Windows.Forms.Button();
+            this.buttonDictionary = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.действияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonEdit = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonDictionary = new System.Windows.Forms.Button();
-            this.buttonNorm = new System.Windows.Forms.Button();
-            this.buttonIncorrect = new System.Windows.Forms.Button();
-            this.dgvSilver = new System.Windows.Forms.DataGridView();
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.buttonSearch = new System.Windows.Forms.Button();
             this.поЗаказамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поЦехуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обсчётСеребраToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обсчётПлощадиСеребренияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.поЦехуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgvSilver = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSilver)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +66,109 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(216, 426);
             this.panel1.TabIndex = 0;
+            // 
+            // buttonIncorrect
+            // 
+            this.buttonIncorrect.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonIncorrect.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonIncorrect.Location = new System.Drawing.Point(0, 384);
+            this.buttonIncorrect.Name = "buttonIncorrect";
+            this.buttonIncorrect.Size = new System.Drawing.Size(216, 42);
+            this.buttonIncorrect.TabIndex = 8;
+            this.buttonIncorrect.Text = "Некорректные нормы";
+            this.buttonIncorrect.UseVisualStyleBackColor = true;
+            this.buttonIncorrect.Click += new System.EventHandler(this.buttonIncorrect_Click);
+            // 
+            // buttonNorm
+            // 
+            this.buttonNorm.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonNorm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonNorm.Location = new System.Drawing.Point(0, 233);
+            this.buttonNorm.Name = "buttonNorm";
+            this.buttonNorm.Size = new System.Drawing.Size(216, 42);
+            this.buttonNorm.TabIndex = 5;
+            this.buttonNorm.Text = "Таблица норм";
+            this.buttonNorm.UseVisualStyleBackColor = true;
+            this.buttonNorm.Click += new System.EventHandler(this.buttonNorm_Click);
+            // 
+            // buttonDictionary
+            // 
+            this.buttonDictionary.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonDictionary.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonDictionary.Location = new System.Drawing.Point(0, 191);
+            this.buttonDictionary.Name = "buttonDictionary";
+            this.buttonDictionary.Size = new System.Drawing.Size(216, 42);
+            this.buttonDictionary.TabIndex = 4;
+            this.buttonDictionary.Text = "Справочник дец номеров";
+            this.buttonDictionary.UseVisualStyleBackColor = true;
+            this.buttonDictionary.Click += new System.EventHandler(this.buttonDictionary_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonDelete.Location = new System.Drawing.Point(0, 149);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(216, 42);
+            this.buttonDelete.TabIndex = 3;
+            this.buttonDelete.Text = "Удалить чек";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonEdit.Location = new System.Drawing.Point(0, 107);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(216, 42);
+            this.buttonEdit.TabIndex = 2;
+            this.buttonEdit.Text = "Изменить чек";
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonAdd.Location = new System.Drawing.Point(0, 65);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(216, 42);
+            this.buttonAdd.TabIndex = 1;
+            this.buttonAdd.Text = "Добавить чек";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonSearch);
+            this.panel2.Controls.Add(this.textBoxSearch);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(216, 65);
+            this.panel2.TabIndex = 0;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonSearch.Location = new System.Drawing.Point(0, 26);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(216, 39);
+            this.buttonSearch.TabIndex = 9;
+            this.buttonSearch.Text = "Поиск";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.textBoxSearch.Location = new System.Drawing.Point(0, 0);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(216, 26);
+            this.textBoxSearch.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -93,139 +196,14 @@
             this.отчётыToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.отчётыToolStripMenuItem.Text = "Отчёты";
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.buttonSearch);
-            this.panel2.Controls.Add(this.textBoxSearch);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(216, 65);
-            this.panel2.TabIndex = 0;
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonAdd.Location = new System.Drawing.Point(0, 65);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(216, 42);
-            this.buttonAdd.TabIndex = 1;
-            this.buttonAdd.Text = "Добавить чек";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonEdit.Location = new System.Drawing.Point(0, 107);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(216, 42);
-            this.buttonEdit.TabIndex = 2;
-            this.buttonEdit.Text = "Изменить чек";
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonDelete.Location = new System.Drawing.Point(0, 149);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(216, 42);
-            this.buttonDelete.TabIndex = 3;
-            this.buttonDelete.Text = "Удалить чек";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // buttonDictionary
-            // 
-            this.buttonDictionary.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonDictionary.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonDictionary.Location = new System.Drawing.Point(0, 191);
-            this.buttonDictionary.Name = "buttonDictionary";
-            this.buttonDictionary.Size = new System.Drawing.Size(216, 42);
-            this.buttonDictionary.TabIndex = 4;
-            this.buttonDictionary.Text = "Справочник дец номеров";
-            this.buttonDictionary.UseVisualStyleBackColor = true;
-            this.buttonDictionary.Click += new System.EventHandler(this.buttonDictionary_Click);
-            // 
-            // buttonNorm
-            // 
-            this.buttonNorm.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonNorm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonNorm.Location = new System.Drawing.Point(0, 233);
-            this.buttonNorm.Name = "buttonNorm";
-            this.buttonNorm.Size = new System.Drawing.Size(216, 42);
-            this.buttonNorm.TabIndex = 5;
-            this.buttonNorm.Text = "Таблица норм";
-            this.buttonNorm.UseVisualStyleBackColor = true;
-            this.buttonNorm.Click += new System.EventHandler(this.buttonNorm_Click);
-            // 
-            // buttonIncorrect
-            // 
-            this.buttonIncorrect.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.buttonIncorrect.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonIncorrect.Location = new System.Drawing.Point(0, 384);
-            this.buttonIncorrect.Name = "buttonIncorrect";
-            this.buttonIncorrect.Size = new System.Drawing.Size(216, 42);
-            this.buttonIncorrect.TabIndex = 8;
-            this.buttonIncorrect.Text = "Некорректные нормы";
-            this.buttonIncorrect.UseVisualStyleBackColor = true;
-            this.buttonIncorrect.Click += new System.EventHandler(this.buttonIncorrect_Click);
-            // 
-            // dgvSilver
-            // 
-            this.dgvSilver.AllowUserToAddRows = false;
-            this.dgvSilver.AllowUserToDeleteRows = false;
-            this.dgvSilver.BackgroundColor = System.Drawing.Color.Gainsboro;
-            this.dgvSilver.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSilver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSilver.GridColor = System.Drawing.Color.Silver;
-            this.dgvSilver.Location = new System.Drawing.Point(0, 24);
-            this.dgvSilver.Name = "dgvSilver";
-            this.dgvSilver.ReadOnly = true;
-            this.dgvSilver.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSilver.Size = new System.Drawing.Size(731, 426);
-            this.dgvSilver.TabIndex = 2;
-            // 
-            // textBoxSearch
-            // 
-            this.textBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBoxSearch.Location = new System.Drawing.Point(0, 0);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(216, 26);
-            this.textBoxSearch.TabIndex = 0;
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonSearch.Location = new System.Drawing.Point(0, 26);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(216, 39);
-            this.buttonSearch.TabIndex = 9;
-            this.buttonSearch.Text = "Поиск";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
             // поЗаказамToolStripMenuItem
             // 
             this.поЗаказамToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.обсчётСеребраToolStripMenuItem,
             this.обсчётПлощадиСеребренияToolStripMenuItem});
             this.поЗаказамToolStripMenuItem.Name = "поЗаказамToolStripMenuItem";
-            this.поЗаказамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.поЗаказамToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.поЗаказамToolStripMenuItem.Text = "По заказам";
-            // 
-            // поЦехуToolStripMenuItem
-            // 
-            this.поЦехуToolStripMenuItem.Name = "поЦехуToolStripMenuItem";
-            this.поЦехуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.поЦехуToolStripMenuItem.Text = "По цеху";
-            this.поЦехуToolStripMenuItem.Click += new System.EventHandler(this.поЦехуToolStripMenuItem_Click);
             // 
             // обсчётСеребраToolStripMenuItem
             // 
@@ -241,6 +219,29 @@
             this.обсчётПлощадиСеребренияToolStripMenuItem.Text = "Обсчёт площади серебрения";
             this.обсчётПлощадиСеребренияToolStripMenuItem.Click += new System.EventHandler(this.обсчётПлощадиСеребренияToolStripMenuItem_Click);
             // 
+            // поЦехуToolStripMenuItem
+            // 
+            this.поЦехуToolStripMenuItem.Name = "поЦехуToolStripMenuItem";
+            this.поЦехуToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.поЦехуToolStripMenuItem.Text = "По цеху";
+            this.поЦехуToolStripMenuItem.Click += new System.EventHandler(this.поЦехуToolStripMenuItem_Click);
+            // 
+            // dgvSilver
+            // 
+            this.dgvSilver.AllowUserToAddRows = false;
+            this.dgvSilver.AllowUserToDeleteRows = false;
+            this.dgvSilver.BackgroundColor = System.Drawing.Color.Gainsboro;
+            this.dgvSilver.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSilver.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSilver.GridColor = System.Drawing.Color.Silver;
+            this.dgvSilver.Location = new System.Drawing.Point(0, 24);
+            this.dgvSilver.Name = "dgvSilver";
+            this.dgvSilver.ReadOnly = true;
+            this.dgvSilver.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSilver.Size = new System.Drawing.Size(731, 426);
+            this.dgvSilver.TabIndex = 2;
+            this.dgvSilver.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSilver_ColumnHeaderMouseClick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -253,10 +254,10 @@
             this.Name = "MainWindow";
             this.Text = "Главное меню";
             this.panel1.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSilver)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

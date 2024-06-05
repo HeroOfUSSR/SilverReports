@@ -31,8 +31,6 @@ namespace SilverReports.Forms
                 dgvDict.Columns["Title_Decimal"].HeaderText = "Децимальный номер";
                 dgvDict.Columns["Checks"].Visible = false;
                 dgvDict.Columns["Norms"].Visible = false;
-
-
             }
         }
 
@@ -71,12 +69,13 @@ namespace SilverReports.Forms
             using (var db = new SilverREContext())
             {
                 var selected = Convert.ToInt32(dgvDict.Rows[dgvDict.SelectedRows[0].Index].Cells[0].Value);
-                var editDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == selected);
+                var deleteDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == selected);
 
-                var deleteDecimal = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
+                var deleteDialog = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
 
-                if (deleteDecimal == DialogResult.OK)
+                if (deleteDialog == DialogResult.OK)
                 {
+                    db.DecimalNumber.Remove(deleteDecimal);
                     MessageBox.Show("Децимальный номер успешно изменён");
                     InitDatagrid();
                 }

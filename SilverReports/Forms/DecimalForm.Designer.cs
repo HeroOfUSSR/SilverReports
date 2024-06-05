@@ -143,7 +143,7 @@
             this.Controls.Add(this.dgvDict);
             this.Controls.Add(this.panel1);
             this.Name = "DecimalForm";
-            this.Text = "DecimalForm";
+            this.Text = "Справочник дец номеров";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

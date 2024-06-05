@@ -44,7 +44,7 @@ namespace SilverReports
                                  Order_Check = check.Order_Check,
                              };
 
-                if (result != null)
+                if (result.Any())
                 {
                     dgvSilver.DataSource = result.ToList();
 
@@ -62,7 +62,6 @@ namespace SilverReports
                     dgvSilver.Columns["Decimal_Check"].HeaderText = "Децимальный номер";
                     dgvSilver.Columns["Order_Check"].HeaderText = "Номер заказа";
                 }
-
                 else
                 {
                     MessageBox.Show("Не найдено ни одной записи");
@@ -181,6 +180,11 @@ namespace SilverReports
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             InitDatagrid();
+        }
+
+        private void dgvSilver_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
         }
     }
 }
