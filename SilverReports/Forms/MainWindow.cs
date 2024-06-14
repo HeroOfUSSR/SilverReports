@@ -16,8 +16,14 @@ namespace SilverReports
     {
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
+        bool x = true;
+
+        private BindingSource bindingSource = new BindingSource();
+
         public MainWindow()
         {
+            
+
             InitializeComponent();
             InitDatagrid();
         }
@@ -46,7 +52,9 @@ namespace SilverReports
 
                 if (result.Any())
                 {
-                    dgvSilver.DataSource = result.ToList();
+                    bindingSource.DataSource = result.ToList();
+
+                    dgvSilver.DataSource = bindingSource;
 
                     dgvSilver.Columns["ID_Check"].HeaderText = "Идентификатор чека";
                     dgvSilver.Columns["ID_Check"].Visible = false;
@@ -80,11 +88,14 @@ namespace SilverReports
 
                 foreach (DataGridViewRow row in dgvSilver.Rows)
                 {
-                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == row.Cells[8].Value.ToString());
+                    string stringComparing = row.Cells[8].Value.ToString();
+                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == stringComparing);
 
+                    string silverComparing = row.Cells[5].Value.ToString();
+                    var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverComparing);
                     if (correctNorm != null)
                         if (correctNorm.Title_Norm.ToString() != row.Cells[4].Value.ToString()
-                            || correctNorm.SilverType_Norm.ToString() != row.Cells[5].Value.ToString()) // Тут надо позор с ToString как то переделать
+                            || correctNorm.SilverType_Norm != rowSilver.Code_SilverType) // Тут надо позор с ToString как то переделать
                             dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed; // P.S. Decimal.Compare не работает, потому что nullable в моделях
                 }
             }
@@ -184,7 +195,11 @@ namespace SilverReports
 
         private void dgvSilver_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+        }
 
+        private void перезагрузитьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitDatagrid();
         }
     }
 }

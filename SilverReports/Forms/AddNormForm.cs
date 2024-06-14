@@ -56,12 +56,35 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
+                int checkDecimal;
+
+                if (!db.DecimalNumber.Any(x => x.Title_Decimal.ToLower().Trim() == comboBoxDecimal.Text.ToLower().Trim()))
+                {
+                    var confirmAdd = MessageBox.Show("Децимальный номер не найден, добавить?", "Внимание", MessageBoxButtons.OKCancel);
+                    if (confirmAdd == DialogResult.OK)
+                    {
+                        DecimalNumber newDecimal = new DecimalNumber
+                        {
+                            Title_Decimal = comboBoxDecimal.Text
+                        };
+                        db.DecimalNumber.Add(newDecimal);
+                        db.SaveChanges();
+
+                        var decimalQuery = db.DecimalNumber.OrderBy(x => x.ID_Decimal).ToList();
+                        checkDecimal = decimalQuery.Last().ID_Decimal;
+                    }
+                    else return;   
+                }
+                else
+                {
+                    checkDecimal = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
+                }
 
                 if (Text == "Редактирование нормы")
                 {
                     editNorm.Title_Norm = Convert.ToDecimal(maskedTextBoxNorm.Text);
                     editNorm.SilverType_Norm = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
-                    editNorm.Decimal_Norm = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
+                    editNorm.Decimal_Norm = checkDecimal;
                     editNorm.Department_Norm = ((Department)comboBoxDepart.SelectedItem).Code_Department;
 
 
@@ -75,7 +98,7 @@ namespace SilverReports.Forms
                 {
                     Norm norm = new Norm
                     {
-                        Decimal_Norm = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal,
+                        Decimal_Norm = checkDecimal,
                         SilverType_Norm = ((SilverType)comboBoxType.SelectedItem).Code_SilverType,
                         Title_Norm = Convert.ToDecimal(maskedTextBoxNorm.Text),
                         Department_Norm = ((Department)comboBoxDepart.SelectedItem).Code_Department

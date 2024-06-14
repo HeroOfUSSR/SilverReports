@@ -221,16 +221,16 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label9.Location = new System.Drawing.Point(45, 281);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(107, 18);
+            this.label9.Size = new System.Drawing.Size(79, 18);
             this.label9.TabIndex = 18;
-            this.label9.Text = "Номер заказа";
+            this.label9.Text = "Дата чека";
             // 
             // buttonAdd
             // 
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonAdd.Location = new System.Drawing.Point(48, 337);
+            this.buttonAdd.Location = new System.Drawing.Point(48, 333);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(352, 35);
+            this.buttonAdd.Size = new System.Drawing.Size(352, 41);
             this.buttonAdd.TabIndex = 19;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -239,9 +239,9 @@
             // buttonClose
             // 
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonClose.Location = new System.Drawing.Point(48, 378);
+            this.buttonClose.Location = new System.Drawing.Point(48, 380);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(352, 35);
+            this.buttonClose.Size = new System.Drawing.Size(352, 29);
             this.buttonClose.TabIndex = 20;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = true;

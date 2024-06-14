@@ -15,6 +15,11 @@ namespace SilverReports.Context
         [Required]
         public string Title_Decimal { get; set; }
 
+        public string dni { get; set; } = string.Empty;
+
+        public string dn { get; set; } = string.Empty;
+
+
         public virtual ICollection<Check> Checks { get; set; }
 
         public virtual ICollection<Norm> Norms { get; set; }

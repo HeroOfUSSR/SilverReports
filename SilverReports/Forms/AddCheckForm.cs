@@ -80,12 +80,34 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
+                int checkDecimal;
+
+                if (!db.DecimalNumber.Any(x => x.Title_Decimal.ToLower().Trim() == comboBoxDecimal.Text.ToLower().Trim()))
+                {
+                    var confirmAdd = MessageBox.Show("Децимальный номер не найден, добавить?", "Внимание", MessageBoxButtons.OKCancel);
+                    if (confirmAdd == DialogResult.OK)
+                    {
+                        DecimalNumber newDecimal = new DecimalNumber
+                        {
+                            Title_Decimal = comboBoxDecimal.Text
+                        };
+                        db.DecimalNumber.Add(newDecimal);
+                        db.SaveChanges();
+
+                        var decimalQuery = db.DecimalNumber.OrderBy(x => x.ID_Decimal).ToList();
+                        checkDecimal = decimalQuery.Last().ID_Decimal;
+                    }
+                    else return;
+                }
+
+                else return;
+
                 if (Text == "Редактирование чека")
                 {
                     editCheck.Norm_Check = Convert.ToDecimal(maskedTextBoxCover.Text);
                     editCheck.Order_Check = textBoxOrder.Text;
                     editCheck.Number_Check = textBoxNumber.Text;
-                    editCheck.Decimal_Check = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
+                    editCheck.Decimal_Check = checkDecimal;
                     editCheck.Coverage_Check = Convert.ToDecimal(maskedTextBoxCover.Text);
                     editCheck.SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
                     editCheck.Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department;
@@ -100,23 +122,6 @@ namespace SilverReports.Forms
                 }
                 else
                 {
-                    int checkDecimal;
-
-                    if (!db.DecimalNumber.Any(x => x.Title_Decimal.ToLower().Trim() == comboBoxDecimal.Text.ToLower().Trim()))
-                    {
-                        DecimalNumber newDecimal = new DecimalNumber
-                        {
-                            Title_Decimal = comboBoxDecimal.Text
-                        };
-                        db.DecimalNumber.Add(newDecimal);
-                        db.SaveChanges();
-
-                        checkDecimal = db.DecimalNumber.OrderBy(x => x.ID_Decimal).Last().ID_Decimal;
-                    }
-                    else
-                    {
-                        checkDecimal = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
-                    }
 
                     Check newCheck = new Check
                     {

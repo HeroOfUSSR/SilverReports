@@ -17,9 +17,9 @@ namespace SilverReports.Context
         public SilverType SilverType_NormNavigation { get; set; }
 
 
-        public decimal? Title_Norm { get; set; }
+        public decimal Title_Norm { get; set; }
 
-        public int Department_Norm { get; set; }
+        public int? Department_Norm { get; set; }
         public Department Department_NormNavigation { get; set; }
 
     }

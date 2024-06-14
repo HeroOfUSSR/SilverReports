@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonIncorrect = new System.Windows.Forms.Button();
             this.buttonNorm = new System.Windows.Forms.Button();
@@ -46,10 +47,13 @@
             this.обсчётПлощадиСеребренияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поЦехуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvSilver = new System.Windows.Forms.DataGridView();
+            this.contextMenuReload = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.перезагрузитьТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSilver)).BeginInit();
+            this.contextMenuReload.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -242,6 +246,20 @@
             this.dgvSilver.TabIndex = 2;
             this.dgvSilver.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSilver_ColumnHeaderMouseClick);
             // 
+            // contextMenuReload
+            // 
+            this.contextMenuReload.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.перезагрузитьТаблицуToolStripMenuItem});
+            this.contextMenuReload.Name = "contextMenuReload";
+            this.contextMenuReload.Size = new System.Drawing.Size(203, 48);
+            // 
+            // перезагрузитьТаблицуToolStripMenuItem
+            // 
+            this.перезагрузитьТаблицуToolStripMenuItem.Name = "перезагрузитьТаблицуToolStripMenuItem";
+            this.перезагрузитьТаблицуToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.перезагрузитьТаблицуToolStripMenuItem.Text = "Перезагрузить таблицу";
+            this.перезагрузитьТаблицуToolStripMenuItem.Click += new System.EventHandler(this.перезагрузитьТаблицуToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,6 +277,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSilver)).EndInit();
+            this.contextMenuReload.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,6 +303,8 @@
         private System.Windows.Forms.ToolStripMenuItem обсчётСеребраToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem обсчётПлощадиСеребренияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поЦехуToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuReload;
+        private System.Windows.Forms.ToolStripMenuItem перезагрузитьТаблицуToolStripMenuItem;
     }
 }
 

@@ -32,7 +32,7 @@ namespace SilverReports.Forms
                                  Title_Norm = norm.Title_Norm,
                                  SilverType_Norm = db.SilverType.FirstOrDefault(x => x.Code_SilverType == norm.SilverType_Norm).Title_SilverType,
                                  Decimal_Norm = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == norm.Decimal_Norm).Title_Decimal,
-                                 Department_Norm = db.Department.FirstOrDefault(x => x.Code_Department == norm.Department_Norm).Code_Department,
+                                 Department_Norm = norm.Department_Norm,
                              };
 
                 if (result.Any())
@@ -96,8 +96,6 @@ namespace SilverReports.Forms
                 if (deleteNorm != null)
                 {
                     DialogResult confirm;
-
-
                     confirm = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
 
 

@@ -21,7 +21,7 @@ namespace SilverReports.Context
 
 
         [DisplayName("Номер цеха")]
-        public int? Department_Check { get; set; }
+        public int Department_Check { get; set; }
         public Department Department_CheckNavigation { get; set; }
 
 
@@ -34,11 +34,11 @@ namespace SilverReports.Context
 
 
         [DisplayName("Площадь покрытия")]
-        public decimal? Coverage_Check { get; set; }
+        public decimal Coverage_Check { get; set; }
 
 
         [DisplayName("Количество")]
-        public int? Amount_Check { get; set; }
+        public int Amount_Check { get; set; }
 
 
         [DisplayName("Децимальный номер")]
@@ -47,7 +47,7 @@ namespace SilverReports.Context
 
 
         [DisplayName("Номер заказа")]
-        public string Order_Check { get; set; }
+        public string Order_Check { get; set; } = string.Empty;
 
     }
 }

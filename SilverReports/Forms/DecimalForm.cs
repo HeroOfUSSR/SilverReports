@@ -29,6 +29,8 @@ namespace SilverReports.Forms
 
                 dgvDict.Columns["ID_Decimal"].HeaderText = "Идентификатор номера";
                 dgvDict.Columns["Title_Decimal"].HeaderText = "Децимальный номер";
+                dgvDict.Columns["dni"].HeaderText = "dni";
+                dgvDict.Columns["dn"].HeaderText = "dn";
                 dgvDict.Columns["Checks"].Visible = false;
                 dgvDict.Columns["Norms"].Visible = false;
             }
@@ -42,6 +44,7 @@ namespace SilverReports.Forms
             if (addDecimal.DialogResult == DialogResult.OK)
             {
                 MessageBox.Show("Успешное добавление");
+                InitDatagrid();
             }
         }
 
@@ -76,11 +79,13 @@ namespace SilverReports.Forms
                 if (deleteDialog == DialogResult.OK)
                 {
                     db.DecimalNumber.Remove(deleteDecimal);
+                    db.SaveChanges();
                     MessageBox.Show("Децимальный номер успешно изменён");
+
                     InitDatagrid();
                 }
 
-            }
+            } 
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -98,6 +103,11 @@ namespace SilverReports.Forms
                     InitDatagrid();
                 }
             }
+        }
+
+        private void перезагрузитьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitDatagrid();
         }
     }
 }
