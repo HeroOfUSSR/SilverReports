@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dgvNorm = new System.Windows.Forms.DataGridView();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.dgvNorm = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNorm)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNorm)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -52,21 +52,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(223, 365);
             this.panel1.TabIndex = 0;
-            // 
-            // dgvNorm
-            // 
-            this.dgvNorm.AllowUserToAddRows = false;
-            this.dgvNorm.AllowUserToDeleteRows = false;
-            this.dgvNorm.BackgroundColor = System.Drawing.Color.Gainsboro;
-            this.dgvNorm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNorm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvNorm.GridColor = System.Drawing.Color.Silver;
-            this.dgvNorm.Location = new System.Drawing.Point(0, 0);
-            this.dgvNorm.Name = "dgvNorm";
-            this.dgvNorm.ReadOnly = true;
-            this.dgvNorm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNorm.Size = new System.Drawing.Size(577, 365);
-            this.dgvNorm.TabIndex = 3;
             // 
             // buttonDelete
             // 
@@ -134,6 +119,21 @@
             this.textBoxSearch.Size = new System.Drawing.Size(223, 26);
             this.textBoxSearch.TabIndex = 0;
             // 
+            // dgvNorm
+            // 
+            this.dgvNorm.AllowUserToAddRows = false;
+            this.dgvNorm.AllowUserToDeleteRows = false;
+            this.dgvNorm.BackgroundColor = System.Drawing.Color.Gainsboro;
+            this.dgvNorm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNorm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvNorm.GridColor = System.Drawing.Color.Silver;
+            this.dgvNorm.Location = new System.Drawing.Point(0, 0);
+            this.dgvNorm.Name = "dgvNorm";
+            this.dgvNorm.ReadOnly = true;
+            this.dgvNorm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvNorm.Size = new System.Drawing.Size(577, 365);
+            this.dgvNorm.TabIndex = 3;
+            // 
             // NormForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,9 +144,9 @@
             this.Name = "NormForm";
             this.Text = "Нормы";
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNorm)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNorm)).EndInit();
             this.ResumeLayout(false);
 
         }

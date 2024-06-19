@@ -1,5 +1,6 @@
 ﻿using SilverReports.Context;
 using SilverReports.Forms;
+using SilverReports.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,29 +17,28 @@ namespace SilverReports
     {
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
-        bool x = true;
-
-        private BindingSource bindingSource = new BindingSource();
-
         public MainWindow()
         {
-            
-
             InitializeComponent();
             InitDatagrid();
+
+
         }
 
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
+
+                dgvSilver.AutoResizeColumns();
+                dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; 
+
                 var result = from check in db.Check
                              .Where(x => x.Number_Check.Contains(textBoxSearch.Text)
                                 || x.Decimal_CheckNavigation.Title_Decimal.Contains(textBoxSearch.Text)
                                 || textBoxSearch.Text == "")
-                             select new
+                             select new CheckResponse
                              {
-                                 ID_Check = check.ID_Check,
                                  Number_Check = check.Number_Check,
                                  Date_Check = check.Date_Check,
                                  Department_Check = check.Department_Check,
@@ -52,12 +52,9 @@ namespace SilverReports
 
                 if (result.Any())
                 {
-                    bindingSource.DataSource = result.ToList();
+                    var checkResult = new SortableBindingList<CheckResponse>(result);
 
-                    dgvSilver.DataSource = bindingSource;
-
-                    dgvSilver.Columns["ID_Check"].HeaderText = "Идентификатор чека";
-                    dgvSilver.Columns["ID_Check"].Visible = false;
+                    dgvSilver.DataSource = checkResult;
 
                     dgvSilver.Columns["Number_Check"].HeaderText = "Номер чека";
                     dgvSilver.Columns["Date_Check"].HeaderText = "Дата чека";
@@ -74,9 +71,6 @@ namespace SilverReports
                 {
                     MessageBox.Show("Не найдено ни одной записи");
                 }
-
-                
-
             }
         }
 
@@ -88,13 +82,13 @@ namespace SilverReports
 
                 foreach (DataGridViewRow row in dgvSilver.Rows)
                 {
-                    string stringComparing = row.Cells[8].Value.ToString();
+                    string stringComparing = row.Cells[7].Value.ToString();
                     var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == stringComparing);
 
-                    string silverComparing = row.Cells[5].Value.ToString();
+                    string silverComparing = row.Cells[4].Value.ToString();
                     var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverComparing);
                     if (correctNorm != null)
-                        if (correctNorm.Title_Norm.ToString() != row.Cells[4].Value.ToString()
+                        if (correctNorm.Title_Norm.ToString() != row.Cells[3].Value.ToString()
                             || correctNorm.SilverType_Norm != rowSilver.Code_SilverType) // Тут надо позор с ToString как то переделать
                             dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed; // P.S. Decimal.Compare не работает, потому что nullable в моделях
                 }

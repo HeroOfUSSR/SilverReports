@@ -90,10 +90,13 @@
     <Compile Include="Forms\ReportManager.Designer.cs">
       <DependentUpon>ReportManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelResponse\DecimalNumberResponse.cs" />
     <Compile Include="Models\Check.cs" />
+    <Compile Include="ModelResponse\CheckResponse.cs" />
     <Compile Include="Models\DecimalNumber.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Norm.cs" />
+    <Compile Include="ModelResponse\NormResponse.cs" />
     <Compile Include="Models\SilverType.cs" />
     <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
@@ -103,6 +106,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortableBindingSource.cs" />
     <EmbeddedResource Include="Forms\AddCheckForm.resx">
       <DependentUpon>AddCheckForm.cs</DependentUpon>
     </EmbeddedResource>

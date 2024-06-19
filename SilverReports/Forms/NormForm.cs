@@ -1,4 +1,5 @@
 ﻿using SilverReports.Context;
+using SilverReports.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,28 +24,31 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
+
+                dgvNorm.AutoResizeColumns();
+                dgvNorm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
                 var result = from norm in db.Norm
                              .Where(x => x.Decimal_NormNavigation.Title_Decimal.Contains(textBoxSearch.Text)
                              || textBoxSearch.Text == "")
-                             select new
+                             select new NormResponse
                              {
-                                 ID_Norm = norm.ID_Norm,
+                                 Decimal_Norm = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == norm.Decimal_Norm).Title_Decimal,
                                  Title_Norm = norm.Title_Norm,
                                  SilverType_Norm = db.SilverType.FirstOrDefault(x => x.Code_SilverType == norm.SilverType_Norm).Title_SilverType,
-                                 Decimal_Norm = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == norm.Decimal_Norm).Title_Decimal,
                                  Department_Norm = norm.Department_Norm,
                              };
 
                 if (result.Any())
                 {
-                    dgvNorm.DataSource = result.ToList();
+                    var normResult = new SortableBindingList<NormResponse>(result);
 
-                    dgvNorm.Columns["ID_Norm"].HeaderText = "Идентификатор нормы";
-                    dgvNorm.Columns["ID_Norm"].Visible = false;
+                    dgvNorm.DataSource = normResult;
 
+                    
+                    dgvNorm.Columns["Decimal_Norm"].HeaderText = "Децимальный номер";
                     dgvNorm.Columns["Title_Norm"].HeaderText = "Норма";
                     dgvNorm.Columns["SilverType_Norm"].HeaderText = "Тип серебра";
-                    dgvNorm.Columns["Decimal_Norm"].HeaderText = "Децимальный номер";
                     dgvNorm.Columns["Department_Norm"].HeaderText = "Цех";
                 }
                 else
@@ -53,6 +57,7 @@ namespace SilverReports.Forms
                 }
             }
         }
+
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {

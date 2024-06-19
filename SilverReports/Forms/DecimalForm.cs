@@ -1,4 +1,6 @@
 ﻿using SilverReports.Context;
+using SilverReports.ModelResponse;
+using SilverReports.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,14 +27,27 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
-                dgvDict.DataSource = db.DecimalNumber.ToList();
+                dgvDict.AutoResizeColumns();
+                dgvDict.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                dgvDict.Columns["ID_Decimal"].HeaderText = "Идентификатор номера";
+                var result = from decnum in db.DecimalNumber
+                             .Where(x => x.Title_Decimal.Contains(textBoxSearch.Text)
+                                || textBoxSearch.Text == "")
+                             select new DecimalNumberResponse
+                             {
+                                 Title_Decimal = decnum.Title_Decimal,
+                             };
+
+                if (result.Any())
+                {
+                    var decimalResult = new SortableBindingList<DecimalNumberResponse>(result);
+
+                    dgvDict.DataSource = decimalResult;
+
+                }
+
                 dgvDict.Columns["Title_Decimal"].HeaderText = "Децимальный номер";
-                dgvDict.Columns["dni"].HeaderText = "dni";
-                dgvDict.Columns["dn"].HeaderText = "dn";
-                dgvDict.Columns["Checks"].Visible = false;
-                dgvDict.Columns["Norms"].Visible = false;
+
             }
         }
 
