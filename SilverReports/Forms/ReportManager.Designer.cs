@@ -28,22 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportManager));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePickerUntil = new System.Windows.Forms.DateTimePicker();
-            this.comboBoxDepartment = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.buttonCreate = new System.Windows.Forms.Button();
             this.statusStripReport = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressReport = new System.Windows.Forms.ToolStripProgressBar();
-            this.buttonCreate = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxDepartment = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePickerUntil = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.backgroundWorkerLoadReport = new System.ComponentModel.BackgroundWorker();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.statusStripReport.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,6 +65,32 @@
             this.panel2.Size = new System.Drawing.Size(532, 66);
             this.panel2.TabIndex = 1;
             // 
+            // buttonCreate
+            // 
+            this.buttonCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.buttonCreate.Location = new System.Drawing.Point(147, 11);
+            this.buttonCreate.Name = "buttonCreate";
+            this.buttonCreate.Size = new System.Drawing.Size(245, 30);
+            this.buttonCreate.TabIndex = 1;
+            this.buttonCreate.Text = "Сформировать отчёт";
+            this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            // 
+            // statusStripReport
+            // 
+            this.statusStripReport.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressReport});
+            this.statusStripReport.Location = new System.Drawing.Point(0, 44);
+            this.statusStripReport.Name = "statusStripReport";
+            this.statusStripReport.Size = new System.Drawing.Size(532, 22);
+            this.statusStripReport.TabIndex = 0;
+            this.statusStripReport.Text = "statusStripReport";
+            // 
+            // toolStripProgressReport
+            // 
+            this.toolStripProgressReport.Name = "toolStripProgressReport";
+            this.toolStripProgressReport.Size = new System.Drawing.Size(100, 16);
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label3);
@@ -78,24 +105,24 @@
             this.panel3.Size = new System.Drawing.Size(532, 163);
             this.panel3.TabIndex = 2;
             // 
-            // dateTimePickerFrom
+            // label3
             // 
-            this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(291, 24);
-            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
-            this.dateTimePickerFrom.Size = new System.Drawing.Size(118, 24);
-            this.dateTimePickerFrom.TabIndex = 0;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label3.Location = new System.Drawing.Point(216, 119);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 18);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Цех";
             // 
-            // label1
+            // comboBoxDepartment
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label1.Location = new System.Drawing.Point(112, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Дата начала периода";
+            this.comboBoxDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.comboBoxDepartment.FormattingEnabled = true;
+            this.comboBoxDepartment.Location = new System.Drawing.Point(256, 116);
+            this.comboBoxDepartment.Name = "comboBoxDepartment";
+            this.comboBoxDepartment.Size = new System.Drawing.Size(80, 26);
+            this.comboBoxDepartment.TabIndex = 4;
             // 
             // label2
             // 
@@ -116,50 +143,24 @@
             this.dateTimePickerUntil.Size = new System.Drawing.Size(118, 24);
             this.dateTimePickerUntil.TabIndex = 2;
             // 
-            // comboBoxDepartment
+            // label1
             // 
-            this.comboBoxDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.comboBoxDepartment.FormattingEnabled = true;
-            this.comboBoxDepartment.Location = new System.Drawing.Point(256, 116);
-            this.comboBoxDepartment.Name = "comboBoxDepartment";
-            this.comboBoxDepartment.Size = new System.Drawing.Size(80, 26);
-            this.comboBoxDepartment.TabIndex = 4;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label1.Location = new System.Drawing.Point(112, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 18);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Дата начала периода";
             // 
-            // label3
+            // dateTimePickerFrom
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.label3.Location = new System.Drawing.Point(216, 119);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 18);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Цех";
-            // 
-            // statusStripReport
-            // 
-            this.statusStripReport.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressReport});
-            this.statusStripReport.Location = new System.Drawing.Point(0, 44);
-            this.statusStripReport.Name = "statusStripReport";
-            this.statusStripReport.Size = new System.Drawing.Size(532, 22);
-            this.statusStripReport.TabIndex = 0;
-            this.statusStripReport.Text = "statusStripReport";
-            // 
-            // toolStripProgressReport
-            // 
-            this.toolStripProgressReport.Name = "toolStripProgressReport";
-            this.toolStripProgressReport.Size = new System.Drawing.Size(100, 16);
-            // 
-            // buttonCreate
-            // 
-            this.buttonCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonCreate.Location = new System.Drawing.Point(147, 11);
-            this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(245, 30);
-            this.buttonCreate.TabIndex = 1;
-            this.buttonCreate.Text = "Сформировать отчёт";
-            this.buttonCreate.UseVisualStyleBackColor = true;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(291, 24);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(118, 24);
+            this.dateTimePickerFrom.TabIndex = 0;
             // 
             // backgroundWorkerLoadReport
             // 
@@ -174,14 +175,15 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReportManager";
             this.Text = "Сгенерировать отчёт";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.statusStripReport.ResumeLayout(false);
             this.statusStripReport.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }

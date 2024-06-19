@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCheckForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNumber = new System.Windows.Forms.TextBox();
             this.comboBoxDepart = new System.Windows.Forms.ComboBox();
-            this.maskedTextBoxNorm = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.maskedTextBoxCover = new System.Windows.Forms.MaskedTextBox();
             this.comboBoxDecimal = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,7 +47,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.numericUpDownNorm = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCoverage = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNorm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCoverage)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -89,16 +92,6 @@
             this.comboBoxDepart.Size = new System.Drawing.Size(121, 26);
             this.comboBoxDepart.TabIndex = 4;
             // 
-            // maskedTextBoxNorm
-            // 
-            this.maskedTextBoxNorm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.maskedTextBoxNorm.Location = new System.Drawing.Point(206, 88);
-            this.maskedTextBoxNorm.Mask = "0.000000";
-            this.maskedTextBoxNorm.Name = "maskedTextBoxNorm";
-            this.maskedTextBoxNorm.Size = new System.Drawing.Size(121, 24);
-            this.maskedTextBoxNorm.TabIndex = 5;
-            this.maskedTextBoxNorm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.maskedTextBoxNorm_KeyDown);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -138,16 +131,6 @@
             this.label5.Size = new System.Drawing.Size(144, 18);
             this.label5.TabIndex = 10;
             this.label5.Text = "Площадь покрытия";
-            // 
-            // maskedTextBoxCover
-            // 
-            this.maskedTextBoxCover.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.maskedTextBoxCover.Location = new System.Drawing.Point(206, 153);
-            this.maskedTextBoxCover.Mask = "0.000000";
-            this.maskedTextBoxCover.Name = "maskedTextBoxCover";
-            this.maskedTextBoxCover.Size = new System.Drawing.Size(121, 24);
-            this.maskedTextBoxCover.TabIndex = 9;
-            this.maskedTextBoxCover.KeyDown += new System.Windows.Forms.KeyEventHandler(this.maskedTextBoxCover_KeyDown);
             // 
             // comboBoxDecimal
             // 
@@ -192,6 +175,11 @@
             // 
             this.numericUpDownAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.numericUpDownAmount.Location = new System.Drawing.Point(207, 183);
+            this.numericUpDownAmount.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
             this.numericUpDownAmount.Name = "numericUpDownAmount";
             this.numericUpDownAmount.Size = new System.Drawing.Size(120, 24);
             this.numericUpDownAmount.TabIndex = 15;
@@ -247,11 +235,51 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // numericUpDownNorm
+            // 
+            this.numericUpDownNorm.DecimalPlaces = 6;
+            this.numericUpDownNorm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.numericUpDownNorm.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            393216});
+            this.numericUpDownNorm.Location = new System.Drawing.Point(207, 89);
+            this.numericUpDownNorm.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownNorm.Name = "numericUpDownNorm";
+            this.numericUpDownNorm.Size = new System.Drawing.Size(120, 24);
+            this.numericUpDownNorm.TabIndex = 21;
+            // 
+            // numericUpDownCoverage
+            // 
+            this.numericUpDownCoverage.DecimalPlaces = 5;
+            this.numericUpDownCoverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.numericUpDownCoverage.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            327680});
+            this.numericUpDownCoverage.Location = new System.Drawing.Point(207, 153);
+            this.numericUpDownCoverage.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownCoverage.Name = "numericUpDownCoverage";
+            this.numericUpDownCoverage.Size = new System.Drawing.Size(120, 24);
+            this.numericUpDownCoverage.TabIndex = 22;
+            // 
             // AddCheckForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 425);
+            this.Controls.Add(this.numericUpDownCoverage);
+            this.Controls.Add(this.numericUpDownNorm);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.label9);
@@ -263,18 +291,19 @@
             this.Controls.Add(this.comboBoxDecimal);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.maskedTextBoxCover);
             this.Controls.Add(this.comboBoxType);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.maskedTextBoxNorm);
             this.Controls.Add(this.comboBoxDepart);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxNumber);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddCheckForm";
             this.Text = "Формирование чека";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNorm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCoverage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,12 +315,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxNumber;
         private System.Windows.Forms.ComboBox comboBoxDepart;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxNorm;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxType;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxCover;
         private System.Windows.Forms.ComboBox comboBoxDecimal;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -302,5 +329,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.NumericUpDown numericUpDownNorm;
+        private System.Windows.Forms.NumericUpDown numericUpDownCoverage;
     }
 }

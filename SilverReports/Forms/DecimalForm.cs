@@ -21,8 +21,6 @@ namespace SilverReports.Forms
             InitDatagrid();
         }
 
-
-
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
@@ -32,9 +30,11 @@ namespace SilverReports.Forms
 
                 var result = from decnum in db.DecimalNumber
                              .Where(x => x.Title_Decimal.Contains(textBoxSearch.Text)
-                                || textBoxSearch.Text == "")
+                                || textBoxSearch.Text == ""
+                                || textBoxSearch.Text == MainWindow.placeholderSearch)
                              select new DecimalNumberResponse
                              {
+                                 ID_Decimal = decnum.ID_Decimal,
                                  Title_Decimal = decnum.Title_Decimal,
                              };
 
@@ -45,6 +45,13 @@ namespace SilverReports.Forms
                     dgvDict.DataSource = decimalResult;
 
                 }
+                else
+                {
+                    MessageBox.Show("Записи не найдены");
+                }
+
+                dgvDict.Columns["ID_Decimal"].HeaderText = "Идентификатор";
+                dgvDict.Columns["ID_Decimal"].Visible = false;
 
                 dgvDict.Columns["Title_Decimal"].HeaderText = "Децимальный номер";
 
@@ -56,11 +63,7 @@ namespace SilverReports.Forms
             var addDecimal = new AddDecimalForm();
             addDecimal.ShowDialog();
 
-            if (addDecimal.DialogResult == DialogResult.OK)
-            {
-                MessageBox.Show("Успешное добавление");
-                InitDatagrid();
-            }
+            InitDatagrid();
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -70,14 +73,16 @@ namespace SilverReports.Forms
                 var selected = Convert.ToInt32(dgvDict.Rows[dgvDict.SelectedRows[0].Index].Cells[0].Value);
                 var editDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == selected);
 
-                AddDecimalForm editDecimalForm = new AddDecimalForm(editDecimal);
-
-
-                if (editDecimalForm.ShowDialog() == DialogResult.OK)
+                if (editDecimal == null)
                 {
-                    MessageBox.Show("Децимальный номер успешно изменён");
-                    InitDatagrid();
+                    MessageBox.Show("Не выбрана запись для редактирования");
+                    return;
                 }
+
+                AddDecimalForm editDecimalForm = new AddDecimalForm(editDecimal);
+                editDecimalForm.ShowDialog();
+
+                InitDatagrid();
 
             }
         }
@@ -89,14 +94,20 @@ namespace SilverReports.Forms
                 var selected = Convert.ToInt32(dgvDict.Rows[dgvDict.SelectedRows[0].Index].Cells[0].Value);
                 var deleteDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == selected);
 
+                if (deleteDecimal == null)
+                {
+                    MessageBox.Show("Не выбрана запись для удаления");
+                    return;
+                }
+
                 var deleteDialog = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
 
                 if (deleteDialog == DialogResult.OK)
                 {
                     db.DecimalNumber.Remove(deleteDecimal);
                     db.SaveChanges();
-                    MessageBox.Show("Децимальный номер успешно изменён");
 
+                    MessageBox.Show("Децимальный номер удалён");
                     InitDatagrid();
                 }
 
@@ -105,24 +116,28 @@ namespace SilverReports.Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            using (var db = new SilverREContext())
-            {
-                if (textBoxSearch.Text != "")
-                {
-
-                    dgvDict.DataSource = db.DecimalNumber.Where(x => x.Title_Decimal.Contains(textBoxSearch.Text)).ToList();
-
-                }
-                else
-                {
-                    InitDatagrid();
-                }
-            }
+            InitDatagrid();
         }
 
         private void перезагрузитьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InitDatagrid();
+        }
+
+        private void textBoxSearch_Enter(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text.Equals(MainWindow.placeholderSearch))
+            {
+                textBoxSearch.Text = string.Empty;
+            }
+        }
+
+        private void textBoxSearch_Leave(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text.Equals(string.Empty))
+            {
+                textBoxSearch.Text = MainWindow.placeholderSearch;
+            }
         }
     }
 }

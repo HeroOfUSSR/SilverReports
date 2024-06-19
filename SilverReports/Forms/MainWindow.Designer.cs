@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonIncorrect = new System.Windows.Forms.Button();
             this.buttonNorm = new System.Windows.Forms.Button();
@@ -173,6 +174,9 @@
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(216, 26);
             this.textBoxSearch.TabIndex = 0;
+            this.textBoxSearch.Text = "Поиск";
+            this.textBoxSearch.Enter += new System.EventHandler(this.textBoxSearch_Enter);
+            this.textBoxSearch.Leave += new System.EventHandler(this.textBoxSearch_Leave);
             // 
             // menuStrip1
             // 
@@ -251,7 +255,7 @@
             this.contextMenuReload.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.перезагрузитьТаблицуToolStripMenuItem});
             this.contextMenuReload.Name = "contextMenuReload";
-            this.contextMenuReload.Size = new System.Drawing.Size(203, 48);
+            this.contextMenuReload.Size = new System.Drawing.Size(203, 26);
             // 
             // перезагрузитьТаблицуToolStripMenuItem
             // 
@@ -268,6 +272,7 @@
             this.Controls.Add(this.dgvSilver);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "Главное меню";

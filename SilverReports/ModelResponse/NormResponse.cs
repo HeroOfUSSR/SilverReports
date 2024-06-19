@@ -9,6 +9,7 @@ namespace SilverReports.Models
 {
     public partial class NormResponse
     {
+        public int ID_Norm { get; set; }
 
         public string Decimal_Norm { get; set; }
 

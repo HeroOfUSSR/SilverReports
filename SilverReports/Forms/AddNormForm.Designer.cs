@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddNormForm));
             this.comboBoxDecimal = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -35,9 +36,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxDepart = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.maskedTextBoxNorm = new System.Windows.Forms.MaskedTextBox();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.numericUpDownNorm = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNorm)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxDecimal
@@ -107,15 +109,6 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Норма";
             // 
-            // maskedTextBoxNorm
-            // 
-            this.maskedTextBoxNorm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.maskedTextBoxNorm.Location = new System.Drawing.Point(188, 97);
-            this.maskedTextBoxNorm.Mask = "0.000000";
-            this.maskedTextBoxNorm.Name = "maskedTextBoxNorm";
-            this.maskedTextBoxNorm.Size = new System.Drawing.Size(121, 24);
-            this.maskedTextBoxNorm.TabIndex = 7;
-            // 
             // buttonClose
             // 
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
@@ -138,23 +131,44 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
+            // numericUpDownNorm
+            // 
+            this.numericUpDownNorm.DecimalPlaces = 6;
+            this.numericUpDownNorm.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.numericUpDownNorm.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            393216});
+            this.numericUpDownNorm.Location = new System.Drawing.Point(188, 98);
+            this.numericUpDownNorm.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericUpDownNorm.Name = "numericUpDownNorm";
+            this.numericUpDownNorm.Size = new System.Drawing.Size(121, 24);
+            this.numericUpDownNorm.TabIndex = 23;
+            // 
             // AddNormForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 253);
+            this.Controls.Add(this.numericUpDownNorm);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.maskedTextBoxNorm);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxDepart);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxDecimal);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddNormForm";
             this.Text = "AddNormForm";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNorm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,8 +183,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxDepart;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxNorm;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.NumericUpDown numericUpDownNorm;
     }
 }

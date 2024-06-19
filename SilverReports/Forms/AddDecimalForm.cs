@@ -33,8 +33,15 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
+                if (textBoxDecimal.Text == "")
+                {
+                    MessageBox.Show("Введите значение");
+                    return;
+                }
+
                 if (buttonAdd.Text == "Изменить")
                 {
+                    editDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == editDecimal.ID_Decimal);
                     editDecimal.Title_Decimal = textBoxDecimal.Text;
 
                     //db.DecimalNumber.Update(editDecimal);
@@ -42,6 +49,12 @@ namespace SilverReports.Forms
                 }
                 else
                 {
+                    if (db.DecimalNumber.Any(x => x.Title_Decimal == textBoxDecimal.Text))
+                    {
+                        MessageBox.Show("Указанный децимальный номер уже существует");
+                        return;
+                    }
+
                     DecimalNumber newDecimal = new DecimalNumber
                     {
                         Title_Decimal = textBoxDecimal.Text,

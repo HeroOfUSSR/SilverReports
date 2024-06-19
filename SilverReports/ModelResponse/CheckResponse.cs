@@ -11,23 +11,28 @@ namespace SilverReports.Models
     public partial class CheckResponse
     {
 
-        public string Number_Check { get; set; }
+        public int ID_Check { get; set; }
 
         public DateTime? Date_Check { get; set; }
 
         public int Department_Check { get; set; }
 
+        public string Order_Check { get; set; } = string.Empty;
+
+        public string Decimal_Check { get; set; }
+
+        public int Amount_Check { get; set; }
+
         public decimal? Norm_Check { get; set; }
 
         public string SilverType_Check { get; set; }
 
+        public string Number_Check { get; set; }
+
         public decimal Coverage_Check { get; set; }
 
-        public int Amount_Check { get; set; }
 
-        public string Decimal_Check { get; set; }
 
-        public string Order_Check { get; set; } = string.Empty;
 
     }
 }

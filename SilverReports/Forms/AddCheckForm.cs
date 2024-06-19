@@ -47,9 +47,12 @@ namespace SilverReports.Forms
             buttonAdd.Text = "Редактировать";
             Text = "Редактирование чека";
 
-            maskedTextBoxNorm.Text = check.Norm_Check.ToString();
+            if (check.Norm_Check != null)
+            {
+                numericUpDownNorm.Value = Convert.ToDecimal(check.Norm_Check);
+            }
             textBoxNumber.Text = check.Number_Check;
-            maskedTextBoxCover.Text = check.Coverage_Check.ToString();
+            numericUpDownCoverage.Value = check.Coverage_Check;
             numericUpDownAmount.Value = Convert.ToDecimal(check.Amount_Check);
             textBoxOrder.Text = check.Order_Check;
 
@@ -67,19 +70,40 @@ namespace SilverReports.Forms
 
             comboBoxDepart.SelectedIndex = index;
 
-            index = comboBoxType.FindString(editCheck.SilverType_Check.ToString());
+            index = comboBoxType.FindString(editCheck.SilverType_CheckNavigation.Title_SilverType.ToString());
 
             comboBoxType.SelectedIndex = index;
 
-            index = comboBoxDecimal.FindString(editCheck.Decimal_Check.ToString());
+            index = comboBoxDecimal.FindString(editCheck.Decimal_CheckNavigation.Title_Decimal.ToString());
 
             comboBoxDecimal.SelectedIndex = index;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+            
             using (var db = new SilverREContext())
             {
+                if (comboBoxDepart.SelectedItem == null) 
+                {
+                    MessageBox.Show("Введён некорректный цех");
+                    return;
+                }
+ 
+
+                if (comboBoxType.SelectedIndex == 0 || comboBoxType.SelectedItem == null)
+                {
+                    MessageBox.Show("Выберите вид серебра");
+                    return;
+                }
+
+
+                if (comboBoxDecimal.Text == "")
+                {
+                    MessageBox.Show("Введите децимальный номер");
+                    return;
+                }
+
                 int checkDecimal;
 
                 if (!db.DecimalNumber.Any(x => x.Title_Decimal.ToLower().Trim() == comboBoxDecimal.Text.ToLower().Trim()))
@@ -97,27 +121,36 @@ namespace SilverReports.Forms
                         var decimalQuery = db.DecimalNumber.OrderBy(x => x.ID_Decimal).ToList();
                         checkDecimal = decimalQuery.Last().ID_Decimal;
                     }
-                    else return;
+                    else
+                    {
+                        MessageBox.Show("Добавление чека отменено");
+                        return;
+                    }
                 }
+                else
+                {
+                    checkDecimal = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
 
-                else return;
+                }
 
                 if (Text == "Редактирование чека")
                 {
-                    editCheck.Norm_Check = Convert.ToDecimal(maskedTextBoxCover.Text);
+                    editCheck = db.Check.FirstOrDefault(x => x.ID_Check == editCheck.ID_Check);
+
+                    editCheck.Norm_Check = numericUpDownNorm.Value;
                     editCheck.Order_Check = textBoxOrder.Text;
                     editCheck.Number_Check = textBoxNumber.Text;
                     editCheck.Decimal_Check = checkDecimal;
-                    editCheck.Coverage_Check = Convert.ToDecimal(maskedTextBoxCover.Text);
+                    editCheck.Coverage_Check = numericUpDownCoverage.Value;
                     editCheck.SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
                     editCheck.Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department;
                     editCheck.Amount_Check = Convert.ToInt32(numericUpDownAmount.Value);
 
-                    //db.Check.Update(editCheck);
-                    //db.Check.AddOrUpdate(editCheck);
+                    //db.Check.Update(editCheck)
                     db.SaveChanges();
 
                     MessageBox.Show($"Успешное редактирование чека №{editCheck.Number_Check}");
+                    this.Close();
 
                 }
                 else
@@ -128,9 +161,9 @@ namespace SilverReports.Forms
                         Date_Check = dtCheck.Value,
                         Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department,
                         Number_Check = textBoxNumber.Text,
-                        Norm_Check = Convert.ToDecimal(maskedTextBoxCover.Text),
+                        Norm_Check = numericUpDownNorm.Value,
                         SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType,
-                        Coverage_Check = Convert.ToDecimal(maskedTextBoxCover.Text),
+                        Coverage_Check = numericUpDownCoverage.Value,
                         Amount_Check = Convert.ToInt32(numericUpDownAmount.Value),
                         Decimal_Check = checkDecimal,
                         Order_Check = textBoxOrder.Text

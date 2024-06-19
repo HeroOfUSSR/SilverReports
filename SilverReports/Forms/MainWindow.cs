@@ -17,12 +17,11 @@ namespace SilverReports
     {
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
+        public static string placeholderSearch = "Поиск";
         public MainWindow()
         {
             InitializeComponent();
             InitDatagrid();
-
-
         }
 
         public void InitDatagrid()
@@ -31,23 +30,26 @@ namespace SilverReports
             {
 
                 dgvSilver.AutoResizeColumns();
-                dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; 
+                dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
                 var result = from check in db.Check
                              .Where(x => x.Number_Check.Contains(textBoxSearch.Text)
                                 || x.Decimal_CheckNavigation.Title_Decimal.Contains(textBoxSearch.Text)
-                                || textBoxSearch.Text == "")
+                                || textBoxSearch.Text == ""
+                                || textBoxSearch.Text == placeholderSearch)
                              select new CheckResponse
                              {
-                                 Number_Check = check.Number_Check,
+                                 ID_Check = check.ID_Check,
                                  Date_Check = check.Date_Check,
                                  Department_Check = check.Department_Check,
+                                 Order_Check = check.Order_Check,
+                                 Decimal_Check = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == check.Decimal_Check).Title_Decimal,
+                                 Amount_Check = check.Amount_Check,
                                  Norm_Check = check.Norm_Check,
                                  SilverType_Check = db.SilverType.FirstOrDefault(x => x.Code_SilverType == check.SilverType_Check).Title_SilverType,
+                                 Number_Check = check.Number_Check,
                                  Coverage_Check = check.Coverage_Check,
-                                 Amount_Check = check.Amount_Check,
-                                 Decimal_Check = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == check.Decimal_Check).Title_Decimal,
-                                 Order_Check = check.Order_Check,
+                                 
                              };
 
                 if (result.Any())
@@ -56,9 +58,9 @@ namespace SilverReports
 
                     dgvSilver.DataSource = checkResult;
 
+                    dgvSilver.Columns["ID_Check"].Visible = false;
                     dgvSilver.Columns["Number_Check"].HeaderText = "Номер чека";
                     dgvSilver.Columns["Date_Check"].HeaderText = "Дата чека";
-                    dgvSilver.Columns["Date_Check"].SortMode = DataGridViewColumnSortMode.Automatic;
                     dgvSilver.Columns["Department_Check"].HeaderText = "Номер цеха";
                     dgvSilver.Columns["Norm_Check"].HeaderText = "Норма серебра";
                     dgvSilver.Columns["SilverType_Check"].HeaderText = "Вид серебра";
@@ -82,13 +84,13 @@ namespace SilverReports
 
                 foreach (DataGridViewRow row in dgvSilver.Rows)
                 {
-                    string stringComparing = row.Cells[7].Value.ToString();
+                    string stringComparing = row.Cells[8].Value.ToString();
                     var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == stringComparing);
 
-                    string silverComparing = row.Cells[4].Value.ToString();
+                    string silverComparing = row.Cells[5].Value.ToString();
                     var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverComparing);
                     if (correctNorm != null)
-                        if (correctNorm.Title_Norm.ToString() != row.Cells[3].Value.ToString()
+                        if (correctNorm.Title_Norm.ToString() != row.Cells[4].Value.ToString()
                             || correctNorm.SilverType_Norm != rowSilver.Code_SilverType) // Тут надо позор с ToString как то переделать
                             dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed; // P.S. Decimal.Compare не работает, потому что nullable в моделях
                 }
@@ -111,10 +113,9 @@ namespace SilverReports
         {
             var addCheck = new AddCheckForm();
             addCheck.ShowDialog();
-            if (addCheck.DialogResult == DialogResult.OK)
-            {
-                InitDatagrid();
-            }
+
+            InitDatagrid();
+
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -122,16 +123,17 @@ namespace SilverReports
             using (var db = new SilverREContext())
             {
                 var selected = Convert.ToInt32(dgvSilver.Rows[dgvSilver.SelectedRows[0].Index].Cells[0].Value);
-                var editCheck = db.Check.FirstOrDefault(x => x.ID_Check == selected);
+                var editCheck = db.Check.Include("Decimal_CheckNavigation")
+                    .Include("SilverType_CheckNavigation")
+                    .FirstOrDefault(x => x.ID_Check == selected);
 
                 if (editCheck != null)
                 {
                     var editForm = new AddCheckForm(editCheck);
                     editForm.ShowDialog();
-                    if (editForm.DialogResult == DialogResult.OK)
-                    {
-                        InitDatagrid();
-                    }
+
+                    InitDatagrid();
+
                 }
                 else MessageBox.Show("Выберите чек для редактирования");
             }
@@ -194,6 +196,22 @@ namespace SilverReports
         private void перезагрузитьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InitDatagrid();
+        }
+
+        private void textBoxSearch_Enter(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text.Equals(placeholderSearch))
+            {
+                textBoxSearch.Text = string.Empty;
+            }
+        }
+
+        private void textBoxSearch_Leave(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text.Equals(string.Empty))
+            {
+                textBoxSearch.Text = placeholderSearch;
+            }
         }
     }
 }

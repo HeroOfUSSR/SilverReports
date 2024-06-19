@@ -29,6 +29,8 @@ namespace SilverReports.Context
 
             modelBuilder.Entity<Check>().ToTable("Check");
             modelBuilder.Entity<Check>().HasKey(x => x.ID_Check);
+            modelBuilder.Entity<Check>().Property(x => x.Norm_Check).HasPrecision(20, 6);
+            modelBuilder.Entity<Check>().Property(x => x.Coverage_Check).HasPrecision(10, 5);
 
             modelBuilder.Entity<Department>().ToTable("Department");
             modelBuilder.Entity<Department>().HasKey(x => x.Code_Department);
@@ -54,6 +56,8 @@ namespace SilverReports.Context
 
             modelBuilder.Entity<Norm>().ToTable("Norm");
             modelBuilder.Entity<Norm>().HasKey(x => x.ID_Norm);
+            modelBuilder.Entity<Norm>().Property(x => x.Title_Norm).HasPrecision(20, 6);
+
 
             modelBuilder.Entity<SilverType>().ToTable("SilverType");
             modelBuilder.Entity<SilverType>().HasKey(x => x.Code_SilverType);
