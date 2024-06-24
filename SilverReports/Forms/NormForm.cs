@@ -14,6 +14,7 @@ namespace SilverReports.Forms
 {
     public partial class NormForm : Form
     {
+        public bool noSearchResults = false;
         public NormForm()
         {
             InitializeComponent();
@@ -24,7 +25,6 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
-
                 dgvNorm.AutoResizeColumns();
                 dgvNorm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -53,10 +53,12 @@ namespace SilverReports.Forms
                     dgvNorm.Columns["Title_Norm"].HeaderText = "Норма";
                     dgvNorm.Columns["SilverType_Norm"].HeaderText = "Тип серебра";
                     dgvNorm.Columns["Department_Norm"].HeaderText = "Цех";
+
+                    noSearchResults = false;
                 }
                 else
                 {
-                    MessageBox.Show("Не найдено ни одной записи");
+                    noSearchResults = true;
                 }
             }
         }
@@ -66,11 +68,8 @@ namespace SilverReports.Forms
         {
             AddNormForm addNorm = new AddNormForm();
             addNorm.ShowDialog();
-            if (addNorm.DialogResult == DialogResult.OK)
-            {
-                MessageBox.Show("Успешное добавление нормы");
-                InitDatagrid();
-            }
+
+            InitDatagrid();
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -134,6 +133,16 @@ namespace SilverReports.Forms
             if (textBoxSearch.Text.Equals(string.Empty))
             {
                 textBoxSearch.Text = MainWindow.placeholderSearch;
+            }
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            InitDatagrid();
+
+            if (noSearchResults)
+            {
+                MessageBox.Show("Не найдено ни одной записи");
             }
         }
     }

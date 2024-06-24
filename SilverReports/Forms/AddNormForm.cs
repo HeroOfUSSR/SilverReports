@@ -41,7 +41,7 @@ namespace SilverReports.Forms
 
         public AddNormForm(Norm norm) : this()
         {
-            buttonAdd.Text = "Редактировать";
+            buttonAdd.Text = "Изменить";
             Text = "Редактирование нормы";
 
             numericUpDownNorm.Value = norm.Title_Norm;
@@ -51,12 +51,9 @@ namespace SilverReports.Forms
 
             editNorm = norm;
 
+            comboBoxDepart.Text = norm.Department_Norm.ToString();
 
-            var index = comboBoxDepart.FindString(editNorm.Decimal_Norm.ToString());
-
-            comboBoxDepart.SelectedIndex = index;
-
-            index = comboBoxType.FindString(editNorm.SilverType_NormNavigation.Title_SilverType.ToString());
+            var index = comboBoxType.FindString(editNorm.SilverType_NormNavigation.Title_SilverType.ToString());
 
             comboBoxType.SelectedIndex = index;
 
@@ -69,21 +66,33 @@ namespace SilverReports.Forms
         {
             using (var db = new SilverREContext())
             {
-                if (comboBoxDepart.SelectedItem == null)
-                {
-                    MessageBox.Show("Введён некорректный цех");
-                    return;
-                }
-
-                if (comboBoxType.SelectedIndex == 0)
+                if (comboBoxType.SelectedItem == null)
                 {
                     MessageBox.Show("Выберите вид серебра");
                     return;
                 }
 
+                if (comboBoxDepart.Text == "")
+                {
+                    MessageBox.Show("Цех не выбран");
+                    return;
+                }
+
+                var department = Convert.ToInt32(comboBoxDepart.Text);
+
+                var isDepartment = db.Department.FirstOrDefault(x => x.Code_Department == department);
+
+                if (isDepartment == null)
+                {
+                    MessageBox.Show("Введён некорректный цех");
+                    return;
+                }
+
                 int checkDecimal;
 
-                if (!db.DecimalNumber.Any(x => x.Title_Decimal.ToLower().Trim() == comboBoxDecimal.Text.ToLower().Trim()))
+                var decimalQuery = db.DecimalNumber.FirstOrDefault(x => x.Title_Decimal.ToLower().Trim() == comboBoxDecimal.Text.ToLower().Trim());
+
+                if (decimalQuery == null)
                 {
                     var confirmAdd = MessageBox.Show("Децимальный номер не найден, добавить?", "Внимание", MessageBoxButtons.OKCancel);
                     if (confirmAdd == DialogResult.OK)
@@ -95,14 +104,14 @@ namespace SilverReports.Forms
                         db.DecimalNumber.Add(newDecimal);
                         db.SaveChanges();
 
-                        var decimalQuery = db.DecimalNumber.OrderBy(x => x.ID_Decimal).ToList();
-                        checkDecimal = decimalQuery.Last().ID_Decimal;
+                        var lastDecimal = db.DecimalNumber.OrderBy(x => x.ID_Decimal).ToList();
+                        checkDecimal = lastDecimal.Last().ID_Decimal;
                     }
                     else return;   
                 }
                 else
-                {
-                    checkDecimal = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
+                { 
+                    checkDecimal = decimalQuery.ID_Decimal;
                 }
 
                 if (Text == "Редактирование нормы")
@@ -112,7 +121,7 @@ namespace SilverReports.Forms
                     editNorm.Title_Norm = numericUpDownNorm.Value;
                     editNorm.SilverType_Norm = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
                     editNorm.Decimal_Norm = checkDecimal;
-                    editNorm.Department_Norm = ((Department)comboBoxDepart.SelectedItem).Code_Department;
+                    editNorm.Department_Norm = Convert.ToInt32(comboBoxDepart.Text);
 
 
                     //db.Norm.Update(editNorm);
@@ -129,7 +138,7 @@ namespace SilverReports.Forms
                         Decimal_Norm = checkDecimal,
                         SilverType_Norm = ((SilverType)comboBoxType.SelectedItem).Code_SilverType,
                         Title_Norm = numericUpDownNorm.Value,
-                        Department_Norm = ((Department)comboBoxDepart.SelectedItem).Code_Department
+                        Department_Norm = Convert.ToInt32(comboBoxDepart.Text)
                     };
 
 

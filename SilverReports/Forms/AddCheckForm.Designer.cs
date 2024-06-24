@@ -220,7 +220,7 @@
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(352, 41);
             this.buttonAdd.TabIndex = 19;
-            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.Text = "Создать";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -300,6 +300,7 @@
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddCheckForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Формирование чека";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNorm)).EndInit();

@@ -73,6 +73,7 @@
             // 
             // comboBoxType
             // 
+            this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.comboBoxType.FormattingEnabled = true;
             this.comboBoxType.Location = new System.Drawing.Point(188, 61);
@@ -127,7 +128,7 @@
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(337, 35);
             this.buttonAdd.TabIndex = 21;
-            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.Text = "Создать";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -167,7 +168,8 @@
             this.Controls.Add(this.comboBoxDecimal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddNormForm";
-            this.Text = "AddNormForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Добавление нормы";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNorm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -56,20 +56,20 @@
             // buttonAdd
             // 
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonAdd.Location = new System.Drawing.Point(36, 97);
+            this.buttonAdd.Location = new System.Drawing.Point(36, 90);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(258, 27);
+            this.buttonAdd.Size = new System.Drawing.Size(258, 38);
             this.buttonAdd.TabIndex = 2;
-            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.Text = "Создать";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.buttonCancel.Location = new System.Drawing.Point(50, 125);
+            this.buttonCancel.Location = new System.Drawing.Point(42, 132);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(229, 27);
+            this.buttonCancel.Size = new System.Drawing.Size(247, 30);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -79,13 +79,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 157);
+            this.ClientSize = new System.Drawing.Size(331, 170);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxDecimal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddDecimalForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление дец номера";
             this.ResumeLayout(false);
             this.PerformLayout();

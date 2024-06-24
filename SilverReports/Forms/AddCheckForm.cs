@@ -44,7 +44,7 @@ namespace SilverReports.Forms
 
         public AddCheckForm(Check check) : this()
         {
-            buttonAdd.Text = "Редактировать";
+            buttonAdd.Text = "Изменить";
             Text = "Редактирование чека";
 
             if (check.Norm_Check != null)
@@ -84,23 +84,25 @@ namespace SilverReports.Forms
             
             using (var db = new SilverREContext())
             {
-                if (comboBoxDepart.SelectedItem == null) 
-                {
-                    MessageBox.Show("Введён некорректный цех");
-                    return;
-                }
- 
-
-                if (comboBoxType.SelectedIndex == 0 || comboBoxType.SelectedItem == null)
+                if (comboBoxType.SelectedItem == null)
                 {
                     MessageBox.Show("Выберите вид серебра");
                     return;
                 }
 
-
                 if (comboBoxDecimal.Text == "")
                 {
                     MessageBox.Show("Введите децимальный номер");
+                    return;
+                }
+
+                var department = Convert.ToInt32(comboBoxDepart.Text);
+
+                var isDepartment = db.Department.FirstOrDefault(x => x.Code_Department == department);
+
+                if (isDepartment == null)
+                {
+                    MessageBox.Show("Введён некорректный цех");
                     return;
                 }
 
@@ -143,7 +145,7 @@ namespace SilverReports.Forms
                     editCheck.Decimal_Check = checkDecimal;
                     editCheck.Coverage_Check = numericUpDownCoverage.Value;
                     editCheck.SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
-                    editCheck.Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department;
+                    editCheck.Department_Check = department;
                     editCheck.Amount_Check = Convert.ToInt32(numericUpDownAmount.Value);
 
                     //db.Check.Update(editCheck)
@@ -159,7 +161,7 @@ namespace SilverReports.Forms
                     Check newCheck = new Check
                     {
                         Date_Check = dtCheck.Value,
-                        Department_Check = ((Department)comboBoxDepart.SelectedItem).Code_Department,
+                        Department_Check = department,
                         Number_Check = textBoxNumber.Text,
                         Norm_Check = numericUpDownNorm.Value,
                         SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType,

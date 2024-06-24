@@ -18,6 +18,10 @@ namespace SilverReports
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
         public static string placeholderSearch = "Поиск";
+
+        private string searchQuery = "";
+
+        public bool noSearchResults = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,10 +37,11 @@ namespace SilverReports
                 dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
                 var result = from check in db.Check
-                             .Where(x => x.Number_Check.Contains(textBoxSearch.Text)
+                             .Where(x => x.SilverType_CheckNavigation.Title_SilverType.Contains(textBoxSearch.Text)
                                 || x.Decimal_CheckNavigation.Title_Decimal.Contains(textBoxSearch.Text)
-                                || textBoxSearch.Text == ""
-                                || textBoxSearch.Text == placeholderSearch)
+                                || x.Number_Check.Contains(textBoxSearch.Text)
+                                || searchQuery == ""
+                                || searchQuery == placeholderSearch)
                              select new CheckResponse
                              {
                                  ID_Check = check.ID_Check,
@@ -58,7 +63,9 @@ namespace SilverReports
 
                     dgvSilver.DataSource = checkResult;
 
+                    dgvSilver.Columns["ID_Check"].HeaderText = "Идентификатор";
                     dgvSilver.Columns["ID_Check"].Visible = false;
+
                     dgvSilver.Columns["Number_Check"].HeaderText = "Номер чека";
                     dgvSilver.Columns["Date_Check"].HeaderText = "Дата чека";
                     dgvSilver.Columns["Department_Check"].HeaderText = "Номер цеха";
@@ -68,31 +75,12 @@ namespace SilverReports
                     dgvSilver.Columns["Amount_Check"].HeaderText = "Количество";
                     dgvSilver.Columns["Decimal_Check"].HeaderText = "Децимальный номер";
                     dgvSilver.Columns["Order_Check"].HeaderText = "Номер заказа";
+
+                    noSearchResults = false;
                 }
                 else
                 {
-                    MessageBox.Show("Не найдено ни одной записи");
-                }
-            }
-        }
-
-        private void buttonIncorrect_Click(object sender, EventArgs e)
-        {
-            using (var db = new SilverREContext())
-            {
-                var checks = db.Check.OrderBy(x => x.ID_Check).ToList();
-
-                foreach (DataGridViewRow row in dgvSilver.Rows)
-                {
-                    string stringComparing = row.Cells[8].Value.ToString();
-                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == stringComparing);
-
-                    string silverComparing = row.Cells[5].Value.ToString();
-                    var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverComparing);
-                    if (correctNorm != null)
-                        if (correctNorm.Title_Norm.ToString() != row.Cells[4].Value.ToString()
-                            || correctNorm.SilverType_Norm != rowSilver.Code_SilverType) // Тут надо позор с ToString как то переделать
-                            dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed; // P.S. Decimal.Compare не работает, потому что nullable в моделях
+                    noSearchResults = true;
                 }
             }
         }
@@ -115,7 +103,6 @@ namespace SilverReports
             addCheck.ShowDialog();
 
             InitDatagrid();
-
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -137,23 +124,21 @@ namespace SilverReports
                 }
                 else MessageBox.Show("Выберите чек для редактирования");
             }
-
- 
         }
 
-        private void обсчётСеребраToolStripMenuItem_Click(object sender, EventArgs e)
+        private void countSilverToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReportManager silverReport = new ReportManager(ReportsType.byOrderSilver);
             silverReport.Show();
         }
 
-        private void обсчётПлощадиСеребренияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void countCoverageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReportManager coverReport = new ReportManager(ReportsType.byOrderCover);
             coverReport.Show();
         }
 
-        private void поЦехуToolStripMenuItem_Click(object sender, EventArgs e)
+        private void byDepartmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReportManager departmentReport = new ReportManager(ReportsType.byDepartment);
             departmentReport.Show();
@@ -180,22 +165,24 @@ namespace SilverReports
                     }
                 }
                 else MessageBox.Show("Выберите запись для удаления");
-
             }
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            InitDatagrid();
-        }
+            if (textBoxSearch.Text == "" || textBoxSearch.Text == placeholderSearch)
+            {
+                MessageBox.Show("Введите данные для поиска");
+                return;
+            }
+            searchQuery = textBoxSearch.Text;
 
-        private void dgvSilver_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-        }
-
-        private void перезагрузитьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
-        {
             InitDatagrid();
+
+            if (noSearchResults)
+            {
+                MessageBox.Show("Не найдено ни одной записи");
+            }
         }
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
@@ -212,6 +199,33 @@ namespace SilverReports
             {
                 textBoxSearch.Text = placeholderSearch;
             }
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var db = new SilverREContext())
+            {
+                var checks = db.Check.OrderBy(x => x.ID_Check).ToList();
+
+                foreach (DataGridViewRow row in dgvSilver.Rows)
+                {
+                    string stringComparing = row.Cells[4].Value.ToString();
+                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == stringComparing);
+
+                    string silverComparing = row.Cells[7].Value.ToString();
+                    var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverComparing);
+                    if (correctNorm != null)
+                        if (correctNorm.Title_Norm.ToString() != row.Cells[6].Value.ToString()
+                            || correctNorm.SilverType_Norm != rowSilver.Code_SilverType)
+                            dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed;
+                }
+            }
+        }
+
+        private void reloadToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            searchQuery = "";
+            InitDatagrid();
         }
     }
 }

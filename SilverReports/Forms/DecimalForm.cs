@@ -15,6 +15,7 @@ namespace SilverReports.Forms
 {
     public partial class DecimalForm : Form
     {
+        private bool noSearchResults = false;
         public DecimalForm()
         {
             InitializeComponent();
@@ -44,10 +45,12 @@ namespace SilverReports.Forms
 
                     dgvDict.DataSource = decimalResult;
 
+                    noSearchResults = false;
+
                 }
                 else
                 {
-                    MessageBox.Show("Записи не найдены");
+                    noSearchResults = true;
                 }
 
                 dgvDict.Columns["ID_Decimal"].HeaderText = "Идентификатор";
@@ -63,6 +66,7 @@ namespace SilverReports.Forms
             var addDecimal = new AddDecimalForm();
             addDecimal.ShowDialog();
 
+            
             InitDatagrid();
         }
 
@@ -100,6 +104,18 @@ namespace SilverReports.Forms
                     return;
                 }
 
+                if (db.Check.Any(x => x.Decimal_Check == deleteDecimal.ID_Decimal))
+                {
+                    MessageBox.Show("Невозможно удалить децимальный номер, так как с ним существует чек");
+                    return;
+                }
+
+                if (db.Norm.Any(x => x.Decimal_Norm == deleteDecimal.ID_Decimal))
+                {
+                    MessageBox.Show("Невозможно удалить децимальный номер, так как с ним существует норма");
+                    return;
+                }
+
                 var deleteDialog = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
 
                 if (deleteDialog == DialogResult.OK)
@@ -117,6 +133,11 @@ namespace SilverReports.Forms
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             InitDatagrid();
+
+            if (noSearchResults)
+            {
+                MessageBox.Show("Записи не найдены");
+            }
         }
 
         private void перезагрузитьТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
