@@ -16,7 +16,6 @@ namespace SilverReports.Forms
     public partial class AddCheckForm : Form
     {
         private Check editCheck;
-
         public AddCheckForm()
         {
             InitializeComponent();
@@ -152,7 +151,6 @@ namespace SilverReports.Forms
                     db.SaveChanges();
 
                     MessageBox.Show($"Успешное редактирование чека №{editCheck.Number_Check}");
-                    this.Close();
 
                 }
                 else
@@ -176,8 +174,9 @@ namespace SilverReports.Forms
 
                     MessageBox.Show("Успешное добавление");
 
-                    this.Close();
                 }
+
+                this.Close();
             }
         }
 

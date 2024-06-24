@@ -17,7 +17,7 @@ namespace SilverReports
     {
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
-        public static string placeholderSearch = "Поиск";
+        public static string placeholderSearch = "Введите запрос";
 
         private string searchQuery = "";
 
@@ -170,11 +170,11 @@ namespace SilverReports
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            if (textBoxSearch.Text == "" || textBoxSearch.Text == placeholderSearch)
-            {
-                MessageBox.Show("Введите данные для поиска");
-                return;
-            }
+            //if (textBoxSearch.Text == placeholderSearch)
+            //{
+            //    MessageBox.Show("Введите данные для поиска");
+            //    return;
+            //}
             searchQuery = textBoxSearch.Text;
 
             InitDatagrid();

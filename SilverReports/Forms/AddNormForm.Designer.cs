@@ -44,6 +44,8 @@
             // 
             // comboBoxDecimal
             // 
+            this.comboBoxDecimal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxDecimal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxDecimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.comboBoxDecimal.FormattingEnabled = true;
             this.comboBoxDecimal.Location = new System.Drawing.Point(188, 29);
