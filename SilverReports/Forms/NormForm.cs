@@ -14,24 +14,29 @@ namespace SilverReports.Forms
 {
     public partial class NormForm : Form
     {
-        public bool noSearchResults = false;
+        private string placeholderSearch = "Введите запрос";
+
+        private string searchQuery = "";
+
+        private bool noSearchResults = false;
+
         public NormForm()
         {
             InitializeComponent();
             InitDatagrid();
+
+            dgvNorm.AutoResizeColumns();
+            dgvNorm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-                dgvNorm.AutoResizeColumns();
-                dgvNorm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
                 var result = from norm in db.Norm
-                             .Where(x => x.Decimal_NormNavigation.Title_Decimal.Contains(textBoxSearch.Text)
-                             || textBoxSearch.Text == ""
-                             || textBoxSearch.Text == MainWindow.placeholderSearch)
+                             .Where(x => x.Decimal_NormNavigation.Title_Decimal.Contains(searchQuery)
+                             || searchQuery == ""
+                             || searchQuery == placeholderSearch)
                              select new NormResponse
                              {
                                  ID_Norm = norm.ID_Norm,
@@ -112,6 +117,7 @@ namespace SilverReports.Forms
                         db.Norm.Remove(deleteNorm);
                         db.SaveChanges();
 
+                        textBoxSearch.Text = "";
                         InitDatagrid();
                     }
                 }
@@ -122,7 +128,7 @@ namespace SilverReports.Forms
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
         {
-            if (textBoxSearch.Text.Equals(MainWindow.placeholderSearch))
+            if (textBoxSearch.Text.Equals(placeholderSearch))
             {
                 textBoxSearch.Text = string.Empty;
             }
@@ -132,17 +138,48 @@ namespace SilverReports.Forms
         {
             if (textBoxSearch.Text.Equals(string.Empty))
             {
-                textBoxSearch.Text = MainWindow.placeholderSearch;
+                textBoxSearch.Text = placeholderSearch;
             }
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            Search();
+        }
+
+        private void Search()
+        {
+            if (textBoxSearch.Text == placeholderSearch)
+            {
+                MessageBox.Show("Введите данные для поиска");
+                return;
+            }
+
+            searchQuery = textBoxSearch.Text;
+
             InitDatagrid();
 
             if (noSearchResults)
             {
                 MessageBox.Show("Не найдено ни одной записи");
+            }
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text == "")
+            {
+                searchQuery = textBoxSearch.Text;
+
+                InitDatagrid();
+            }
+        }
+
+        private void textBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Search();
             }
         }
     }

@@ -17,35 +17,35 @@ namespace SilverReports
     {
         public enum ReportsType { byOrderSilver, byOrderCover, byDepartment }
 
-        public static string placeholderSearch = "Введите запрос";
+        private string placeholderSearch = "Введите запрос";
 
         private string searchQuery = "";
 
-        public bool noSearchResults = false;
+        private bool noSearchResults = false;
         public MainWindow()
         {
             InitializeComponent();
             InitDatagrid();
+
+            dgvSilver.AutoResizeColumns();
+            dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-
-                dgvSilver.AutoResizeColumns();
-                dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
                 var result = from check in db.Check
-                             .Where(x => x.SilverType_CheckNavigation.Title_SilverType.Contains(textBoxSearch.Text)
-                                || x.Decimal_CheckNavigation.Title_Decimal.Contains(textBoxSearch.Text)
-                                || x.Number_Check.Contains(textBoxSearch.Text)
+                             .Where(x => x.SilverType_CheckNavigation.Title_SilverType.Contains(searchQuery)
+                                || x.Decimal_CheckNavigation.Title_Decimal.Contains(searchQuery)
+                                || x.Number_Check.Contains(searchQuery)
+                                || x.Order_Check.Contains(searchQuery) 
                                 || searchQuery == ""
                                 || searchQuery == placeholderSearch)
                              select new CheckResponse
                              {
                                  ID_Check = check.ID_Check,
-                                 Date_Check = check.Date_Check,
+                                 Date_Check = check.Date_Check,//.ToString("d"),
                                  Department_Check = check.Department_Check,
                                  Order_Check = check.Order_Check,
                                  Decimal_Check = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == check.Decimal_Check).Title_Decimal,
@@ -161,6 +161,7 @@ namespace SilverReports
                         db.Check.Remove(deleteCheck);
                         db.SaveChanges();
 
+                        textBoxSearch.Text = "";
                         InitDatagrid();
                     }
                 }
@@ -170,11 +171,16 @@ namespace SilverReports
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            //if (textBoxSearch.Text == placeholderSearch)
-            //{
-            //    MessageBox.Show("Введите данные для поиска");
-            //    return;
-            //}
+            Search();
+        }
+
+        private void Search()
+        {
+            if (textBoxSearch.Text == placeholderSearch)
+            {
+                MessageBox.Show("Введите данные для поиска");
+                return;
+            }
             searchQuery = textBoxSearch.Text;
 
             InitDatagrid();
@@ -226,6 +232,24 @@ namespace SilverReports
         {
             searchQuery = "";
             InitDatagrid();
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text == "")//|| textBoxSearch.Text == placeholderSearch)
+            {
+                searchQuery = textBoxSearch.Text;
+
+                InitDatagrid();
+            }
+        }
+
+        private void textBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Search();
+            }
         }
     }
 }

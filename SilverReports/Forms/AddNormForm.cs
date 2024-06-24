@@ -41,7 +41,6 @@ namespace SilverReports.Forms
 
         public AddNormForm(Norm norm) : this()
         {
-            buttonAdd.Text = "Изменить";
             Text = "Редактирование нормы";
 
             numericUpDownNorm.Value = norm.Title_Norm;

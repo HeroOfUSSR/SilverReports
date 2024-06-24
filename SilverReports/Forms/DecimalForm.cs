@@ -15,24 +15,28 @@ namespace SilverReports.Forms
 {
     public partial class DecimalForm : Form
     {
+        private string placeholderSearch = "Введите запрос";
+
+        private string searchQuery = "";
+
         private bool noSearchResults = false;
         public DecimalForm()
         {
             InitializeComponent();
             InitDatagrid();
+
+            dgvDict.AutoResizeColumns();
+            dgvDict.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-                dgvDict.AutoResizeColumns();
-                dgvDict.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
                 var result = from decnum in db.DecimalNumber
-                             .Where(x => x.Title_Decimal.Contains(textBoxSearch.Text)
-                                || textBoxSearch.Text == ""
-                                || textBoxSearch.Text == MainWindow.placeholderSearch)
+                             .Where(x => x.Title_Decimal.Contains(searchQuery)
+                                || searchQuery == ""
+                                || searchQuery == placeholderSearch)
                              select new DecimalNumberResponse
                              {
                                  ID_Decimal = decnum.ID_Decimal,
@@ -124,6 +128,9 @@ namespace SilverReports.Forms
                     db.SaveChanges();
 
                     MessageBox.Show("Децимальный номер удалён");
+
+                    textBoxSearch.Text = "";
+
                     InitDatagrid();
                 }
 
@@ -132,11 +139,24 @@ namespace SilverReports.Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            Search();
+        }
+
+        private void Search()
+        {
+            if (textBoxSearch.Text == placeholderSearch)
+            {
+                MessageBox.Show("Введите данные для поиска");
+                return;
+            }
+
+            searchQuery = textBoxSearch.Text;
+
             InitDatagrid();
 
             if (noSearchResults)
             {
-                MessageBox.Show("Записи не найдены");
+                MessageBox.Show("Не найдено ни одной записи");
             }
         }
 
@@ -147,7 +167,7 @@ namespace SilverReports.Forms
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
         {
-            if (textBoxSearch.Text.Equals(MainWindow.placeholderSearch))
+            if (textBoxSearch.Text.Equals(placeholderSearch))
             {
                 textBoxSearch.Text = string.Empty;
             }
@@ -157,7 +177,25 @@ namespace SilverReports.Forms
         {
             if (textBoxSearch.Text.Equals(string.Empty))
             {
-                textBoxSearch.Text = MainWindow.placeholderSearch;
+                textBoxSearch.Text = placeholderSearch;
+            }
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxSearch.Text == "")
+            {
+                searchQuery = textBoxSearch.Text;
+
+                InitDatagrid();
+            }
+        }
+
+        private void textBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                InitDatagrid();
             }
         }
     }

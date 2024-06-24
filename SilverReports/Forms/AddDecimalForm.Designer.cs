@@ -60,7 +60,7 @@
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(258, 38);
             this.buttonAdd.TabIndex = 2;
-            this.buttonAdd.Text = "Создать";
+            this.buttonAdd.Text = "Сохранить";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 

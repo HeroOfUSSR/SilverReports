@@ -43,7 +43,6 @@ namespace SilverReports.Forms
 
         public AddCheckForm(Check check) : this()
         {
-            buttonAdd.Text = "Изменить";
             Text = "Редактирование чека";
 
             if (check.Norm_Check != null)
@@ -83,10 +82,16 @@ namespace SilverReports.Forms
             
             using (var db = new SilverREContext())
             {
+                int silverType;
+
                 if (comboBoxType.SelectedItem == null)
                 {
                     MessageBox.Show("Выберите вид серебра");
                     return;
+                }
+                else
+                {
+                    silverType = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
                 }
 
                 if (comboBoxDecimal.Text == "")
@@ -132,6 +137,30 @@ namespace SilverReports.Forms
                 {
                     checkDecimal = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
 
+                    var existingNorms = db.Norm.Where(x => x.Decimal_Norm == checkDecimal).ToList();
+                    if (existingNorms != null)
+                    {
+                        bool isPresent = false;
+                        foreach (var existingNorm in existingNorms)
+                        {
+                            if (existingNorm.SilverType_Norm == silverType && existingNorm.Title_Norm == numericUpDownNorm.Value)
+                            {
+                                isPresent = true;
+                                break;
+                            }
+                        }
+
+                        if (!isPresent)
+                        {
+                            DialogResult confirm = MessageBox.Show("Введённые нормы не соответствуют табличным значениям, всё равно создать чек?", "Внимание!", MessageBoxButtons.OKCancel);
+
+                            if (confirm != DialogResult.OK)
+                            {
+                                return;
+                            }
+                        }
+                    }
+
                 }
 
                 if (Text == "Редактирование чека")
@@ -143,7 +172,7 @@ namespace SilverReports.Forms
                     editCheck.Number_Check = textBoxNumber.Text;
                     editCheck.Decimal_Check = checkDecimal;
                     editCheck.Coverage_Check = numericUpDownCoverage.Value;
-                    editCheck.SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType;
+                    editCheck.SilverType_Check = silverType;
                     editCheck.Department_Check = department;
                     editCheck.Amount_Check = Convert.ToInt32(numericUpDownAmount.Value);
 
@@ -162,7 +191,7 @@ namespace SilverReports.Forms
                         Department_Check = department,
                         Number_Check = textBoxNumber.Text,
                         Norm_Check = numericUpDownNorm.Value,
-                        SilverType_Check = ((SilverType)comboBoxType.SelectedItem).Code_SilverType,
+                        SilverType_Check = silverType,
                         Coverage_Check = numericUpDownCoverage.Value,
                         Amount_Check = Convert.ToInt32(numericUpDownAmount.Value),
                         Decimal_Check = checkDecimal,

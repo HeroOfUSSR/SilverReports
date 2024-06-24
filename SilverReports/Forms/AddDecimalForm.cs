@@ -22,7 +22,6 @@ namespace SilverReports.Forms
         public AddDecimalForm(DecimalNumber decimalNumber) : this() 
         {
             Text = "Редактирование дец номера";
-            buttonAdd.Text = "Изменить";
 
             editDecimal = decimalNumber;
 
@@ -39,7 +38,7 @@ namespace SilverReports.Forms
                     return;
                 }
 
-                if (buttonAdd.Text == "Изменить")
+                if (Text == "Редактирование дец номера")
                 {
                     editDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == editDecimal.ID_Decimal);
                     editDecimal.Title_Decimal = textBoxDecimal.Text;

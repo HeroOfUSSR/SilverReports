@@ -126,7 +126,9 @@
             this.textBoxSearch.Size = new System.Drawing.Size(276, 26);
             this.textBoxSearch.TabIndex = 0;
             this.textBoxSearch.Text = "Введите запрос";
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             this.textBoxSearch.Enter += new System.EventHandler(this.textBoxSearch_Enter);
+            this.textBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyDown);
             this.textBoxSearch.Leave += new System.EventHandler(this.textBoxSearch_Leave);
             // 
             // dgvDict
