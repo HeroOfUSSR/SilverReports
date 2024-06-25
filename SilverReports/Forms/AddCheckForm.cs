@@ -138,7 +138,7 @@ namespace SilverReports.Forms
                     checkDecimal = ((DecimalNumber)comboBoxDecimal.SelectedItem).ID_Decimal;
 
                     var existingNorms = db.Norm.Where(x => x.Decimal_Norm == checkDecimal).ToList();
-                    if (existingNorms != null)
+                    if (existingNorms.Count != 0)
                     {
                         bool isPresent = false;
                         foreach (var existingNorm in existingNorms)
@@ -167,6 +167,7 @@ namespace SilverReports.Forms
                 {
                     editCheck = db.Check.FirstOrDefault(x => x.ID_Check == editCheck.ID_Check);
 
+                    editCheck.Date_Check = dtCheck.Value;
                     editCheck.Norm_Check = numericUpDownNorm.Value;
                     editCheck.Order_Check = textBoxOrder.Text;
                     editCheck.Number_Check = textBoxNumber.Text;
@@ -209,15 +210,6 @@ namespace SilverReports.Forms
             }
         }
 
-        private void maskedTextBoxNorm_KeyDown(object sender, KeyEventArgs e)
-        {
-            char digit = Convert.ToChar(e.KeyCode);
-
-            if (!Char.IsDigit(digit) || e.KeyCode == Keys.Back)
-            {
-                e.Handled = true;
-            }
-        }
 
         private void textBoxNumber_KeyDown(object sender, KeyEventArgs e)
         {
@@ -229,7 +221,13 @@ namespace SilverReports.Forms
             }
         }
 
-        private void maskedTextBoxCover_KeyDown(object sender, KeyEventArgs e)
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void textBoxOrder_KeyDown(object sender, KeyEventArgs e)
         {
             char digit = Convert.ToChar(e.KeyCode);
 
@@ -237,11 +235,6 @@ namespace SilverReports.Forms
             {
                 e.Handled = true;
             }
-        }
-
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

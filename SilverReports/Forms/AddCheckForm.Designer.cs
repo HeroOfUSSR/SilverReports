@@ -80,7 +80,7 @@
             this.textBoxNumber.Location = new System.Drawing.Point(206, 58);
             this.textBoxNumber.Name = "textBoxNumber";
             this.textBoxNumber.Size = new System.Drawing.Size(121, 24);
-            this.textBoxNumber.TabIndex = 2;
+            this.textBoxNumber.TabIndex = 1;
             this.textBoxNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxNumber_KeyDown);
             // 
             // comboBoxDepart
@@ -90,7 +90,7 @@
             this.comboBoxDepart.Location = new System.Drawing.Point(206, 26);
             this.comboBoxDepart.Name = "comboBoxDepart";
             this.comboBoxDepart.Size = new System.Drawing.Size(121, 26);
-            this.comboBoxDepart.TabIndex = 4;
+            this.comboBoxDepart.TabIndex = 0;
             // 
             // label3
             // 
@@ -110,7 +110,7 @@
             this.comboBoxType.Location = new System.Drawing.Point(206, 118);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(194, 26);
-            this.comboBoxType.TabIndex = 8;
+            this.comboBoxType.TabIndex = 3;
             // 
             // label4
             // 
@@ -141,7 +141,7 @@
             this.comboBoxDecimal.Location = new System.Drawing.Point(206, 213);
             this.comboBoxDecimal.Name = "comboBoxDecimal";
             this.comboBoxDecimal.Size = new System.Drawing.Size(194, 26);
-            this.comboBoxDecimal.TabIndex = 12;
+            this.comboBoxDecimal.TabIndex = 6;
             // 
             // label6
             // 
@@ -169,7 +169,8 @@
             this.textBoxOrder.Location = new System.Drawing.Point(206, 245);
             this.textBoxOrder.Name = "textBoxOrder";
             this.textBoxOrder.Size = new System.Drawing.Size(121, 24);
-            this.textBoxOrder.TabIndex = 13;
+            this.textBoxOrder.TabIndex = 7;
+            this.textBoxOrder.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxOrder_KeyDown);
             // 
             // numericUpDownAmount
             // 
@@ -182,7 +183,7 @@
             0});
             this.numericUpDownAmount.Name = "numericUpDownAmount";
             this.numericUpDownAmount.Size = new System.Drawing.Size(120, 24);
-            this.numericUpDownAmount.TabIndex = 15;
+            this.numericUpDownAmount.TabIndex = 5;
             // 
             // label8
             // 
@@ -201,7 +202,7 @@
             this.dtCheck.Location = new System.Drawing.Point(206, 276);
             this.dtCheck.Name = "dtCheck";
             this.dtCheck.Size = new System.Drawing.Size(121, 24);
-            this.dtCheck.TabIndex = 17;
+            this.dtCheck.TabIndex = 8;
             // 
             // label9
             // 
@@ -219,7 +220,7 @@
             this.buttonAdd.Location = new System.Drawing.Point(48, 333);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(352, 41);
-            this.buttonAdd.TabIndex = 19;
+            this.buttonAdd.TabIndex = 9;
             this.buttonAdd.Text = "Сохранить";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -230,7 +231,7 @@
             this.buttonClose.Location = new System.Drawing.Point(48, 380);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(352, 29);
-            this.buttonClose.TabIndex = 20;
+            this.buttonClose.TabIndex = 10;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
@@ -252,7 +253,7 @@
             0});
             this.numericUpDownNorm.Name = "numericUpDownNorm";
             this.numericUpDownNorm.Size = new System.Drawing.Size(120, 24);
-            this.numericUpDownNorm.TabIndex = 21;
+            this.numericUpDownNorm.TabIndex = 2;
             // 
             // numericUpDownCoverage
             // 
@@ -271,7 +272,7 @@
             0});
             this.numericUpDownCoverage.Name = "numericUpDownCoverage";
             this.numericUpDownCoverage.Size = new System.Drawing.Size(120, 24);
-            this.numericUpDownCoverage.TabIndex = 22;
+            this.numericUpDownCoverage.TabIndex = 4;
             // 
             // AddCheckForm
             // 

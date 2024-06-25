@@ -5,11 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Infrastructure.Interception;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace SilverReports
 {
@@ -22,30 +25,71 @@ namespace SilverReports
         private string searchQuery = "";
 
         private bool noSearchResults = false;
+
+        private IQueryable<Check> check;
+
+        private int selectedYear;
+
         public MainWindow()
         {
+
             InitializeComponent();
             InitDatagrid();
 
             dgvSilver.AutoResizeColumns();
-            dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;        
         }
 
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-                var result = from check in db.Check
+                check = db.Check;
+
+                switch (selectedYear)
+                {
+                    case 2023:
+                        check = check.Where(x => x.Date_Check.Year == 2023);
+
+                        if (check == null)
+                        {
+                            MessageBox.Show("Записи не найдены");
+                        }
+
+                        break;
+                    case 2024:
+                        check = check.Where(x => x.Date_Check.Year == 2024);
+
+                        if (check == null)
+                        {
+                            MessageBox.Show("Записи не найдены");
+                        }
+
+                        break;
+                    case 2025:
+                        check = check.Where(x => x.Date_Check.Year == 2025);
+
+                        if (check == null)
+                        {
+                            MessageBox.Show("Записи не найдены");
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+
+                var result = from check in check
                              .Where(x => x.SilverType_CheckNavigation.Title_SilverType.Contains(searchQuery)
                                 || x.Decimal_CheckNavigation.Title_Decimal.Contains(searchQuery)
                                 || x.Number_Check.Contains(searchQuery)
-                                || x.Order_Check.Contains(searchQuery) 
+                                || x.Order_Check.Contains(searchQuery)
                                 || searchQuery == ""
-                                || searchQuery == placeholderSearch)
+                                || searchQuery == placeholderSearch).AsEnumerable()
                              select new CheckResponse
                              {
                                  ID_Check = check.ID_Check,
-                                 Date_Check = check.Date_Check,//.ToString("d"),
+                                 Date_Check = check.Date_Check.ToString("d"),
                                  Department_Check = check.Department_Check,
                                  Order_Check = check.Order_Check,
                                  Decimal_Check = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == check.Decimal_Check).Title_Decimal,
@@ -54,7 +98,6 @@ namespace SilverReports
                                  SilverType_Check = db.SilverType.FirstOrDefault(x => x.Code_SilverType == check.SilverType_Check).Title_SilverType,
                                  Number_Check = check.Number_Check,
                                  Coverage_Check = check.Coverage_Check,
-                                 
                              };
 
                 if (result.Any())
@@ -233,12 +276,6 @@ namespace SilverReports
             }
         }
 
-        private void reloadToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            searchQuery = "";
-            InitDatagrid();
-        }
-
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             if (textBoxSearch.Text == "")//|| textBoxSearch.Text == placeholderSearch)
@@ -255,6 +292,30 @@ namespace SilverReports
             {
                 Search();
             }
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            selectedYear = 2023;
+            InitDatagrid();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            selectedYear = 2024;
+            InitDatagrid();
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            selectedYear = 2025;
+            InitDatagrid();
+        }
+
+        private void everyYearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedYear = 0;
+            InitDatagrid();
         }
     }
 }

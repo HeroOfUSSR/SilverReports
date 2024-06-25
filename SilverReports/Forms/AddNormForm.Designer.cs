@@ -81,7 +81,7 @@
             this.comboBoxType.Location = new System.Drawing.Point(188, 61);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(179, 26);
-            this.comboBoxType.TabIndex = 2;
+            this.comboBoxType.TabIndex = 1;
             // 
             // label3
             // 
@@ -100,7 +100,7 @@
             this.comboBoxDepart.Location = new System.Drawing.Point(188, 127);
             this.comboBoxDepart.Name = "comboBoxDepart";
             this.comboBoxDepart.Size = new System.Drawing.Size(121, 26);
-            this.comboBoxDepart.TabIndex = 4;
+            this.comboBoxDepart.TabIndex = 3;
             // 
             // label4
             // 
@@ -151,7 +151,7 @@
             0});
             this.numericUpDownNorm.Name = "numericUpDownNorm";
             this.numericUpDownNorm.Size = new System.Drawing.Size(121, 24);
-            this.numericUpDownNorm.TabIndex = 23;
+            this.numericUpDownNorm.TabIndex = 2;
             // 
             // AddNormForm
             // 

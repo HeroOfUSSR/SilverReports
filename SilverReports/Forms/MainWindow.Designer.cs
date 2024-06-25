@@ -45,7 +45,11 @@
             this.countCoverageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byDepartmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.incorrectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.everyYearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvSilver = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -62,7 +66,7 @@
             this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(837, 24);
+            this.panel1.Location = new System.Drawing.Point(947, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(216, 426);
             this.panel1.TabIndex = 1;
@@ -168,10 +172,10 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ReportsToolStripMenuItem,
             this.incorrectToolStripMenuItem,
-            this.reloadToolStripMenuItem});
+            this.filterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1053, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1163, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "reportStrip";
             // 
@@ -221,12 +225,44 @@
             this.incorrectToolStripMenuItem.Text = "Некорректные нормы";
             this.incorrectToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
-            // reloadToolStripMenuItem
+            // filterToolStripMenuItem
             // 
-            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
-            this.reloadToolStripMenuItem.Text = "Перезагрузить";
-            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click_1);
+            this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5,
+            this.everyYearToolStripMenuItem});
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(113, 20);
+            this.filterToolStripMenuItem.Text = "Фильтр по годам";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "2023";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Text = "2024";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem5.Text = "2025";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // everyYearToolStripMenuItem
+            // 
+            this.everyYearToolStripMenuItem.Name = "everyYearToolStripMenuItem";
+            this.everyYearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.everyYearToolStripMenuItem.Text = "Все года";
+            this.everyYearToolStripMenuItem.Click += new System.EventHandler(this.everyYearToolStripMenuItem_Click);
             // 
             // dgvSilver
             // 
@@ -240,19 +276,20 @@
             this.dgvSilver.Name = "dgvSilver";
             this.dgvSilver.ReadOnly = true;
             this.dgvSilver.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSilver.Size = new System.Drawing.Size(837, 426);
+            this.dgvSilver.Size = new System.Drawing.Size(947, 426);
             this.dgvSilver.TabIndex = 2;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1053, 450);
+            this.ClientSize = new System.Drawing.Size(1163, 450);
             this.Controls.Add(this.dgvSilver);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(800, 489);
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главное меню";
@@ -286,7 +323,11 @@
         private System.Windows.Forms.ToolStripMenuItem countCoverageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byDepartmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem incorrectToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem everyYearToolStripMenuItem;
     }
 }
 

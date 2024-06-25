@@ -11,7 +11,7 @@ namespace SilverReports.Context
     public partial class SilverREContext : DbContext
     {
         public SilverREContext()
-            : base("Server=ORIT-14\\SQLEXPRESS; Database=SilverRE; User ID=IvanovAA; Password=059a8ivi9")
+            : base("Server=sqlsrv; Database=SilverRE; User ID=user1; Password=user1")
         {
         }
 

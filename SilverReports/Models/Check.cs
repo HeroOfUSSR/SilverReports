@@ -17,7 +17,7 @@ namespace SilverReports.Context
 
 
         [DisplayName("Дата создания чека ")]
-        public DateTime? Date_Check { get; set; }
+        public DateTime Date_Check { get; set; }
 
 
         [DisplayName("Номер цеха")]

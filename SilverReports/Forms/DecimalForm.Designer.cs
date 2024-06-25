@@ -173,6 +173,8 @@
             this.Controls.Add(this.dgvDict);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(320, 700);
+            this.MinimumSize = new System.Drawing.Size(292, 540);
             this.Name = "DecimalForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочник дец номеров";

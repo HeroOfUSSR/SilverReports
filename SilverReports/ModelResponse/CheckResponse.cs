@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace SilverReports.Models
 
         public int ID_Check { get; set; }
 
-        public DateTime? Date_Check { get; set; }
+        public string Date_Check { get; set; } = string.Empty;
 
         public int Department_Check { get; set; }
 
