@@ -195,7 +195,7 @@ namespace SilverReports.Forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                InitDatagrid();
+                Search();
             }
         }
     }

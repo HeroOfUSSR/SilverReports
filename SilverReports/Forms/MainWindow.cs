@@ -148,18 +148,23 @@ namespace SilverReports
         {
             using (var db = new SilverREContext())
             {
-                var selected = Convert.ToInt32(dgvSilver.Rows[dgvSilver.SelectedRows[0].Index].Cells[0].Value);
+                var allSelected = dgvSilver.SelectedRows;
 
-                var deleteCheck = db.Check.FirstOrDefault(x => x.ID_Check == selected);
-
-                if (deleteCheck != null)
+                if (allSelected != null)
                 {
-                    DialogResult confirm = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
+                    DialogResult confirm = MessageBox.Show("Вы уверены, что хотите удалить выделенные записи?", "Внимание!", MessageBoxButtons.OKCancel);
 
                     if (confirm == DialogResult.OK)
                     {
-                        db.Check.Remove(deleteCheck);
-                        db.SaveChanges();
+                        foreach (DataGridViewRow row in allSelected)
+                        {
+                            var selected = Convert.ToInt32(row.Cells[0].Value);
+
+                            var deleteCheck = db.Check.FirstOrDefault(x => x.ID_Check == selected);
+
+                            db.Check.Remove(deleteCheck);
+                            db.SaveChanges();
+                        }
 
                         textBoxSearch.Text = "";
                         InitDatagrid();

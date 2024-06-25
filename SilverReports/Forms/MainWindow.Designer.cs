@@ -62,7 +62,7 @@
             this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(731, 24);
+            this.panel1.Location = new System.Drawing.Point(837, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(216, 426);
             this.panel1.TabIndex = 1;
@@ -171,7 +171,7 @@
             this.reloadToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(947, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1053, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "reportStrip";
             // 
@@ -240,14 +240,14 @@
             this.dgvSilver.Name = "dgvSilver";
             this.dgvSilver.ReadOnly = true;
             this.dgvSilver.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSilver.Size = new System.Drawing.Size(731, 426);
+            this.dgvSilver.Size = new System.Drawing.Size(837, 426);
             this.dgvSilver.TabIndex = 2;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 450);
+            this.ClientSize = new System.Drawing.Size(1053, 450);
             this.Controls.Add(this.dgvSilver);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
