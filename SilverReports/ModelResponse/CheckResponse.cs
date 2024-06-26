@@ -14,7 +14,7 @@ namespace SilverReports.Models
 
         public int ID_Check { get; set; }
 
-        public string Date_Check { get; set; } = string.Empty;
+        public DateTime Date_Check { get; set; }
 
         public int Department_Check { get; set; }
 

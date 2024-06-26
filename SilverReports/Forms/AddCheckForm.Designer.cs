@@ -300,6 +300,8 @@
             this.Controls.Add(this.textBoxNumber);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(458, 464);
+            this.MinimumSize = new System.Drawing.Size(458, 464);
             this.Name = "AddCheckForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Формирование чека";

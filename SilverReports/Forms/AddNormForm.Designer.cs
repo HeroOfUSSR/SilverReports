@@ -169,6 +169,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxDecimal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(404, 292);
+            this.MinimumSize = new System.Drawing.Size(404, 292);
             this.Name = "AddNormForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление нормы";

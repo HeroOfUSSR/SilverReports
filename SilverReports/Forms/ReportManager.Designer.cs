@@ -176,6 +176,8 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(548, 301);
+            this.MinimumSize = new System.Drawing.Size(548, 301);
             this.Name = "ReportManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Сгенерировать отчёт";

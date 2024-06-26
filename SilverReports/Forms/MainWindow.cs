@@ -30,6 +30,8 @@ namespace SilverReports
 
         private int selectedYear;
 
+        private SortableBindingList<CheckResponse> checkResult;
+
         public MainWindow()
         {
 
@@ -44,7 +46,7 @@ namespace SilverReports
         {
             using (var db = new SilverREContext())
             {
-                check = db.Check;
+                check = db.Check.OrderByDescending(x => x.Date_Check);
 
                 switch (selectedYear)
                 {
@@ -89,7 +91,7 @@ namespace SilverReports
                              select new CheckResponse
                              {
                                  ID_Check = check.ID_Check,
-                                 Date_Check = check.Date_Check.ToString("d"),
+                                 Date_Check = check.Date_Check.Date,//.ToString("d"),
                                  Department_Check = check.Department_Check,
                                  Order_Check = check.Order_Check,
                                  Decimal_Check = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == check.Decimal_Check).Title_Decimal,
@@ -102,7 +104,7 @@ namespace SilverReports
 
                 if (result.Any())
                 {
-                    var checkResult = new SortableBindingList<CheckResponse>(result);
+                    checkResult = new SortableBindingList<CheckResponse>(result);
 
                     dgvSilver.DataSource = checkResult;
 
@@ -146,6 +148,7 @@ namespace SilverReports
             addCheck.ShowDialog();
 
             InitDatagrid();
+
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
