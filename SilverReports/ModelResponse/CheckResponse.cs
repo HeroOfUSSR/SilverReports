@@ -20,15 +20,15 @@ namespace SilverReports.Models
 
         public string Order_Check { get; set; } = string.Empty;
 
-        public string Decimal_Check { get; set; }
+        public string Decimal_Check { get; set; } = string.Empty;
 
         public int Amount_Check { get; set; }
 
         public decimal? Norm_Check { get; set; }
 
-        public string SilverType_Check { get; set; }
+        public string SilverType_Check { get; set; } = string.Empty;
 
-        public string Number_Check { get; set; }
+        public string Number_Check { get; set; } = string.Empty;
 
         public decimal Coverage_Check { get; set; }
 

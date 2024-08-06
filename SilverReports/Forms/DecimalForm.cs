@@ -196,5 +196,26 @@ namespace SilverReports.Forms
                 Search();
             }
         }
+
+        private void dgvDict_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            using (var db = new SilverREContext())
+            {
+                var selected = Convert.ToInt32(dgvDict.Rows[dgvDict.SelectedRows[0].Index].Cells[0].Value);
+                var editDecimal = db.DecimalNumber.FirstOrDefault(x => x.ID_Decimal == selected);
+
+                if (editDecimal == null)
+                {
+                    MessageBox.Show("Не выбрана запись для редактирования");
+                    return;
+                }
+
+                AddDecimalForm editDecimalForm = new AddDecimalForm(editDecimal);
+                editDecimalForm.ShowDialog();
+
+                InitDatagrid();
+
+            }
+        }
     }
 }

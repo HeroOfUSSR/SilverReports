@@ -30,6 +30,8 @@ namespace SilverReports
 
         private IQueryable<Check> check;
 
+        private Check indication; // Костыль
+
         private SortableBindingList<CheckResponse> checkResult;
 
         public MainWindow()
@@ -92,7 +94,9 @@ namespace SilverReports
 
                         check = check.Where(x => x.Date_Check == DateTime.Now);
 
-                        if (check == null)
+                        indication = check.FirstOrDefault(x => x.Date_Check == DateTime.Now);
+
+                        if (indication == null)
                         {
                             MessageBox.Show("Записи не найдены");
                         }
@@ -101,7 +105,9 @@ namespace SilverReports
 
                         check = check.Where(x => x.Date_Check >= dtFrom.Value && x.Date_Check <= dtUntil.Value);
 
-                        if (check == null)
+                        indication = check.FirstOrDefault(x => x.Date_Check >= dtFrom.Value && x.Date_Check <= dtUntil.Value);
+
+                        if (indication == null)
                         {
                             MessageBox.Show("Записи не найдены");
                         }
@@ -155,9 +161,8 @@ namespace SilverReports
                 }
                 else
                 {
-                    noSearchResults = true;
-
-
+                    noSearchResults = true; // BRUH
+                                            
                 }
             }
         }
@@ -243,7 +248,7 @@ namespace SilverReports
             Search();
         }
 
-        private void Search()
+        private void Search() // Переписать этот метод
         {
             if (textBoxSearch.Text == "Введите запрос")
             {

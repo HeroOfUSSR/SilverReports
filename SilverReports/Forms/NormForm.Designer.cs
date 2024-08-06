@@ -51,7 +51,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(577, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(223, 577);
+            this.panel1.Size = new System.Drawing.Size(223, 424);
             this.panel1.TabIndex = 0;
             // 
             // buttonDelete
@@ -138,14 +138,15 @@
             this.dgvNorm.Name = "dgvNorm";
             this.dgvNorm.ReadOnly = true;
             this.dgvNorm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNorm.Size = new System.Drawing.Size(577, 577);
+            this.dgvNorm.Size = new System.Drawing.Size(577, 424);
             this.dgvNorm.TabIndex = 3;
+            this.dgvNorm.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvNorm_MouseDoubleClick);
             // 
             // NormForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 577);
+            this.ClientSize = new System.Drawing.Size(800, 424);
             this.Controls.Add(this.dgvNorm);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

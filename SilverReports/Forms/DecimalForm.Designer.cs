@@ -145,6 +145,7 @@
             this.dgvDict.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDict.Size = new System.Drawing.Size(276, 310);
             this.dgvDict.TabIndex = 4;
+            this.dgvDict.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvDict_MouseDoubleClick);
             // 
             // contextMenuReload
             // 

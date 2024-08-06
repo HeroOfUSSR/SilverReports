@@ -184,5 +184,28 @@ namespace SilverReports.Forms
                 Search();
             }
         }
+
+        private void dgvNorm_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            using (var db = new SilverREContext())
+            {
+                int firstRowIndex = dgvNorm.FirstDisplayedCell.RowIndex;
+                var selected = Convert.ToInt32(dgvNorm.Rows[dgvNorm.SelectedRows[0].Index].Cells[0].Value);
+                var editNorm = db.Norm.Include("Decimal_NormNavigation")
+                    .Include("SilverType_NormNavigation")
+                    .FirstOrDefault(x => x.ID_Norm == selected);
+
+                if (editNorm != null)
+                {
+                    var editForm = new AddNormForm(editNorm);
+                    editForm.ShowDialog();
+
+                    InitDatagrid();
+                    dgvNorm.FirstDisplayedScrollingRowIndex = firstRowIndex;
+
+                }
+                else MessageBox.Show("Выберите норму для редактирования");
+            }
+        }
     }
 }
