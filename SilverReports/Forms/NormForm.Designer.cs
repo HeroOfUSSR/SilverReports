@@ -154,6 +154,7 @@
             this.Name = "NormForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Нормы";
+            this.Load += new System.EventHandler(this.NormForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

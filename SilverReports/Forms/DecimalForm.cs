@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace SilverReports.Forms
 {
@@ -18,20 +19,24 @@ namespace SilverReports.Forms
         private string searchQuery = "";
 
         private bool noSearchResults = false;
+
+        private IQueryable<DecimalNumber> decimalQuery;
+
         public DecimalForm()
         {
             InitializeComponent();
             InitDatagrid();
 
-            dgvDict.AutoResizeColumns();
-            dgvDict.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
         }
 
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-                var result = from decnum in db.DecimalNumber
+                decimalQuery = db.DecimalNumber.OrderBy(x => x.Title_Decimal);
+
+                var result = from decnum in decimalQuery
                              .Where(x => x.Title_Decimal.Contains(searchQuery)
                                 || searchQuery == ""
                                 || searchQuery == "Введите запрос")
@@ -118,7 +123,7 @@ namespace SilverReports.Forms
                     return;
                 }
 
-                var deleteDialog = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
+                var deleteDialog = MessageBox.Show($"Вы уверены, что хотите удалить дец. номер: {deleteDecimal.Title_Decimal}?", "Внимание!", MessageBoxButtons.OKCancel);
 
                 if (deleteDialog == DialogResult.OK)
                 {
@@ -216,6 +221,12 @@ namespace SilverReports.Forms
                 InitDatagrid();
 
             }
+        }
+
+        private void DecimalForm_Load(object sender, EventArgs e)
+        {
+            dgvDict.AutoResizeColumns();
+            dgvDict.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

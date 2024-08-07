@@ -18,20 +18,25 @@ namespace SilverReports.Forms
 
         private bool noSearchResults = false;
 
+        private IQueryable<Norm> normQuery;
+
+
         public NormForm()
         {
             InitializeComponent();
             InitDatagrid();
 
             dgvNorm.AutoResizeColumns();
-            dgvNorm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-                var result = from norm in db.Norm
+                normQuery = db.Norm.OrderBy(x => x.Decimal_NormNavigation.Title_Decimal);
+
+
+                var result = from norm in normQuery
                              .Where(x => x.Decimal_NormNavigation.Title_Decimal.Contains(searchQuery)
                              || searchQuery == ""
                              || searchQuery == "Введите запрос")
@@ -109,7 +114,7 @@ namespace SilverReports.Forms
                 if (deleteNorm != null)
                 {                    
                     DialogResult confirm;
-                    confirm = MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание!", MessageBoxButtons.OKCancel);
+                    confirm = MessageBox.Show($"Вы уверены, что хотите удалить норму для дец. номера: {deleteNorm.Decimal_NormNavigation.Title_Decimal}?", "Внимание!", MessageBoxButtons.OKCancel);
 
 
                     if (confirm == DialogResult.OK)
@@ -206,6 +211,12 @@ namespace SilverReports.Forms
                 }
                 else MessageBox.Show("Выберите норму для редактирования");
             }
+        }
+
+        private void NormForm_Load(object sender, EventArgs e)
+        {
+            dgvNorm.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
         }
     }
 }

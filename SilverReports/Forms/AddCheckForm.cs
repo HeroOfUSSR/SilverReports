@@ -119,7 +119,7 @@ namespace SilverReports.Forms
                     {
                         DecimalNumber newDecimal = new DecimalNumber
                         {
-                            Title_Decimal = comboBoxDecimal.Text
+                            Title_Decimal = comboBoxDecimal.Text.ToUpper()
                         };
                         db.DecimalNumber.Add(newDecimal);
                         db.SaveChanges();

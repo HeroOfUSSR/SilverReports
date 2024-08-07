@@ -26,8 +26,6 @@ namespace SilverReports
 
         private string searchQuery = "";
 
-        private bool noSearchResults = false;
-
         private IQueryable<Check> check;
 
         private SortableBindingList<CheckResponse> checkResult;
@@ -39,14 +37,15 @@ namespace SilverReports
             InitDatagrid();
 
             dgvSilver.AutoResizeColumns();
-            dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;        
+            dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
         }
 
         public void InitDatagrid()
         {
             using (var db = new SilverREContext())
             {
-                check = db.Check.OrderByDescending(x => x.Date_Check);
+                check = db.Check.OrderByDescending(x => x.Date_Check);//Decimal_CheckNavigation.Title_Decimal);
 
                 switch (current)
                 {
@@ -127,12 +126,9 @@ namespace SilverReports
                     dgvSilver.Columns["Amount_Check"].HeaderText = "Количество";
                     dgvSilver.Columns["Decimal_Check"].HeaderText = "Децимальный номер";
                     dgvSilver.Columns["Order_Check"].HeaderText = "Номер заказа";
-
-                    noSearchResults = false;
                 }
                 else
                 {
-                    noSearchResults = true; 
                     MessageBox.Show("Записи не найдены");
 
                     ClearSearch();
@@ -433,9 +429,16 @@ namespace SilverReports
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            dgvSilver.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
 
             helperMainMenu.SetHelpString(textBoxSearch, "Вводите сюда данные для поиска. Поиск производится одновременно по: номеру чека, номеру заказа, децимальному номеру. По завершению ввода нажмите клавишу ENTER на клавиатуре или кнопку ПОИСК в окне курсором");
 
+            using (var db = new SilverREContext())
+            {
+                var chmo = db.Check.OrderByDescending(x => x.Date_Check).ToList();
+                dtFrom.Value = chmo.Last().Date_Check;
+            }
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -466,15 +469,31 @@ namespace SilverReports
                 foreach (DataGridViewRow row in dgvSilver.Rows)
                 {
                     string decimalToCompare = row.Cells[4].Value.ToString();
-                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == decimalToCompare);
+                    string silverToCompare2 = row.Cells[7].Value.ToString();
+                    decimal normToCompare = Convert.ToDecimal(row.Cells[6].Value);
+                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == decimalToCompare
+                        && x.SilverType_NormNavigation.Title_SilverType == silverToCompare2
+                        && x.Title_Norm == normToCompare) ;
 
-                    string silverToCompare = row.Cells[7].Value.ToString();
-                    var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverToCompare);
+                    if (correctNorm == null)
+                    {
+                        dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed;
+                    }
+                    //testToolStripMenuItem.Text = dgvSilver.Rows[1].Cells[4].Value.ToString();
 
-                    if (correctNorm != null)
-                        if (correctNorm.Title_Norm.ToString() != row.Cells[6].Value.ToString()
-                            || correctNorm.SilverType_Norm != rowSilver.Code_SilverType)
-                            dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed;
+
+                    //string silverToCompare = row.Cells[7].Value.ToString();
+                    //var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverToCompare);
+
+                    //if (correctNorm != null)
+                    //{
+                    //    if (correctNorm.Title_Norm.ToString() != row.Cells[6].Value.ToString().Trim()
+                    //        || correctNorm.SilverType_Norm != rowSilver.Code_SilverType)
+                    //    {
+                    //        dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed;
+                    //    }
+                    //}
+                        
                 }
             }
         }

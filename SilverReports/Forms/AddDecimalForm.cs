@@ -57,7 +57,7 @@ namespace SilverReports.Forms
 
                     DecimalNumber newDecimal = new DecimalNumber
                     {
-                        Title_Decimal = textBoxDecimal.Text,
+                        Title_Decimal = textBoxDecimal.Text.ToUpper(),
                     };
 
                     MessageBox.Show("Децимальный номер добавлен");
