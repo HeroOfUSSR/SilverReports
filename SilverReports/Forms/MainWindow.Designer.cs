@@ -60,6 +60,9 @@
             this.ReportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.incorrectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReloadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReloadClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvSilver = new System.Windows.Forms.DataGridView();
             this.contextMSReload = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,9 +71,6 @@
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReloadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReloadClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -411,7 +411,7 @@
             this.incorrectToolStripMenuItem.Name = "incorrectToolStripMenuItem";
             this.incorrectToolStripMenuItem.Size = new System.Drawing.Size(142, 20);
             this.incorrectToolStripMenuItem.Text = "Некорректные нормы";
-            this.incorrectToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
+            this.incorrectToolStripMenuItem.Click += new System.EventHandler(this.incorrectToolStripMenuItem_Click);
             // 
             // обновитьToolStripMenuItem
             // 
@@ -421,6 +421,27 @@
             this.обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
             this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.обновитьToolStripMenuItem.Text = "Обновить ";
+            // 
+            // ReloadToolStripMenuItem1
+            // 
+            this.ReloadToolStripMenuItem1.Name = "ReloadToolStripMenuItem1";
+            this.ReloadToolStripMenuItem1.Size = new System.Drawing.Size(191, 22);
+            this.ReloadToolStripMenuItem1.Text = "Обновить";
+            this.ReloadToolStripMenuItem1.Click += new System.EventHandler(this.ReloadToolStripMenuItem1_Click);
+            // 
+            // ReloadClearToolStripMenuItem
+            // 
+            this.ReloadClearToolStripMenuItem.Name = "ReloadClearToolStripMenuItem";
+            this.ReloadClearToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.ReloadClearToolStripMenuItem.Text = "Обновить и очистить";
+            this.ReloadClearToolStripMenuItem.Click += new System.EventHandler(this.ReloadClearToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(113, 20);
+            this.helpToolStripMenuItem.Text = "Открыть справку";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // dgvSilver
             // 
@@ -461,27 +482,6 @@
             // toolTips
             // 
             this.toolTips.ToolTipTitle = "Поиск";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(113, 20);
-            this.helpToolStripMenuItem.Text = "Открыть справку";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
-            // 
-            // ReloadToolStripMenuItem1
-            // 
-            this.ReloadToolStripMenuItem1.Name = "ReloadToolStripMenuItem1";
-            this.ReloadToolStripMenuItem1.Size = new System.Drawing.Size(191, 22);
-            this.ReloadToolStripMenuItem1.Text = "Обновить";
-            this.ReloadToolStripMenuItem1.Click += new System.EventHandler(this.ReloadToolStripMenuItem1_Click);
-            // 
-            // ReloadClearToolStripMenuItem
-            // 
-            this.ReloadClearToolStripMenuItem.Name = "ReloadClearToolStripMenuItem";
-            this.ReloadClearToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.ReloadClearToolStripMenuItem.Text = "Обновить и очистить";
-            this.ReloadClearToolStripMenuItem.Click += new System.EventHandler(this.ReloadClearToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

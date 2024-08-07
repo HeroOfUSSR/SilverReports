@@ -30,8 +30,6 @@ namespace SilverReports
 
         private IQueryable<Check> check;
 
-        private Check indication; // Костыль
-
         private SortableBindingList<CheckResponse> checkResult;
 
         public MainWindow()
@@ -56,20 +54,10 @@ namespace SilverReports
 
                         check = check.Where(x => x.Date_Check.Year == DateTime.Now.Year);
 
-                        if (check == null)
-                        {
-                            MessageBox.Show("Записи не найдены");
-                        }
-
                         break;
                     case FilterType.month:
 
                         check = check.Where(x => x.Date_Check.Month == DateTime.Now.Month && x.Date_Check.Year == DateTime.Now.Year);
-
-                        if (check == null)
-                        {
-                            MessageBox.Show("Записи не найдены");
-                        }
 
                         break;
                     case FilterType.week:
@@ -84,33 +72,16 @@ namespace SilverReports
                         check = check.Where(x => x.Date_Check >= weekDays.Min() &&
                             x.Date_Check <= weekDays.Max());
 
-                        if (check == null)
-                        {
-                            MessageBox.Show("Записи не найдены");
-                        }
-
                         break;
                     case FilterType.day:
 
                         check = check.Where(x => x.Date_Check == DateTime.Now);
 
-                        indication = check.FirstOrDefault(x => x.Date_Check == DateTime.Now);
-
-                        if (indication == null)
-                        {
-                            MessageBox.Show("Записи не найдены");
-                        }
                         break;
                     case FilterType.custom:
 
                         check = check.Where(x => x.Date_Check >= dtFrom.Value && x.Date_Check <= dtUntil.Value);
 
-                        indication = check.FirstOrDefault(x => x.Date_Check >= dtFrom.Value && x.Date_Check <= dtUntil.Value);
-
-                        if (indication == null)
-                        {
-                            MessageBox.Show("Записи не найдены");
-                        }
                         break;
                     default:
                         
@@ -161,8 +132,10 @@ namespace SilverReports
                 }
                 else
                 {
-                    noSearchResults = true; // BRUH
-                                            
+                    noSearchResults = true; 
+                    MessageBox.Show("Записи не найдены");
+
+                    ClearSearch();
                 }
             }
         }
@@ -255,14 +228,10 @@ namespace SilverReports
                 MessageBox.Show("Введите данные для поиска");
                 return;
             }
+
             searchQuery = textBoxSearch.Text;
 
             InitDatagrid();
-
-            if (noSearchResults)
-            {
-                MessageBox.Show("Не найдено ни одной записи");
-            }
         }
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
@@ -278,27 +247,6 @@ namespace SilverReports
             if (textBoxSearch.Text.Equals(string.Empty))
             {
                 textBoxSearch.Text = "Введите запрос";
-            }
-        }
-        /*работает неправильно*/
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var db = new SilverREContext())
-            {
-                var checks = db.Check.OrderBy(x => x.ID_Check).ToList();
-
-                foreach (DataGridViewRow row in dgvSilver.Rows)
-                {
-                    string stringComparing = row.Cells[4].Value.ToString();
-                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == stringComparing);
-
-                    string silverComparing = row.Cells[7].Value.ToString();
-                    var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverComparing);
-                    if (correctNorm != null)
-                        if (correctNorm.Title_Norm.ToString() != row.Cells[6].Value.ToString()
-                            || correctNorm.SilverType_Norm != rowSilver.Code_SilverType)
-                            dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed;
-                }
             }
         }
 
@@ -334,7 +282,7 @@ namespace SilverReports
 
             current = FilterType.year;
 
-            ButtonDisabler(current);
+            ButtonDisabler();
             InitDatagrid();
         }
 
@@ -345,7 +293,7 @@ namespace SilverReports
 
             current = FilterType.month;
 
-            ButtonDisabler(current);
+            ButtonDisabler();
             InitDatagrid();
         }
 
@@ -356,7 +304,7 @@ namespace SilverReports
 
             current = FilterType.week;
 
-            ButtonDisabler(current);
+            ButtonDisabler();
             InitDatagrid();
         }
 
@@ -370,7 +318,7 @@ namespace SilverReports
 
             current = FilterType.day;
 
-            ButtonDisabler(current);
+            ButtonDisabler();
             InitDatagrid();
         }
 
@@ -398,15 +346,15 @@ namespace SilverReports
 
             current = FilterType.custom;
 
-            ButtonDisabler(current);
+            ButtonDisabler();
 
             dtFrom.Enabled = true;
             dtUntil.Enabled = true;
         }
 
-        private void ButtonDisabler(FilterType button)
+        private void ButtonDisabler()
         {
-            switch (button)
+            switch (current)
             {
                 case FilterType.year:
                     radioWeek.Checked = false;
@@ -438,10 +386,27 @@ namespace SilverReports
                     radioMonth.Checked = false;
                     radioToday.Checked = false;
                     return;
+                case FilterType.nope:
+                    radioYear.Checked = false;
+                    radioWeek.Checked = false;
+                    radioMonth.Checked = false;
+                    radioToday.Checked = false;
+                    radioCustom.Checked = false;
+                    break;
             }
 
             dtUntil.Enabled = false;
             dtFrom.Enabled = false;
+        }
+
+        private void ClearSearch()
+        {
+            current = FilterType.nope;
+            textBoxSearch.Text = "Введите запрос";
+            searchQuery = string.Empty;
+
+            ButtonDisabler();
+            InitDatagrid();
         }
 
         private void dgvSilver_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -484,14 +449,34 @@ namespace SilverReports
 
         private void ReloadClearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            current = FilterType.nope;
-            textBoxSearch.Text = "Введите запрос";
-
+            ClearSearch();
         }
 
         private void ReloadToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             InitDatagrid();
+        }
+
+        private void incorrectToolStripMenuItem_Click(object sender, EventArgs e) // Вроде как неправильно
+        {
+            using (var db = new SilverREContext())
+            {
+                var checks = db.Check.OrderBy(x => x.ID_Check).ToList();
+
+                foreach (DataGridViewRow row in dgvSilver.Rows)
+                {
+                    string decimalToCompare = row.Cells[4].Value.ToString();
+                    var correctNorm = db.Norm.FirstOrDefault(x => x.Decimal_NormNavigation.Title_Decimal == decimalToCompare);
+
+                    string silverToCompare = row.Cells[7].Value.ToString();
+                    var rowSilver = db.SilverType.FirstOrDefault(x => x.Title_SilverType == silverToCompare);
+
+                    if (correctNorm != null)
+                        if (correctNorm.Title_Norm.ToString() != row.Cells[6].Value.ToString()
+                            || correctNorm.SilverType_Norm != rowSilver.Code_SilverType)
+                            dgvSilver.Rows[row.Index].DefaultCellStyle.BackColor = Color.IndianRed;
+                }
+            }
         }
     }
 }
