@@ -150,34 +150,20 @@ namespace SilverReports
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+            int firstRowIndex = dgvSilver.FirstDisplayedCell.RowIndex;
+
             var addCheck = new AddCheckForm();
             addCheck.ShowDialog();
 
             InitDatagrid();
 
+            dgvSilver.FirstDisplayedScrollingRowIndex = firstRowIndex;
+
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            using (var db = new SilverREContext())
-            {
-                int firstRowIndex = dgvSilver.FirstDisplayedCell.RowIndex;
-                var selected = Convert.ToInt32(dgvSilver.Rows[dgvSilver.SelectedRows[0].Index].Cells[0].Value);
-                var editCheck = db.Check.Include("Decimal_CheckNavigation")
-                    .Include("SilverType_CheckNavigation")
-                    .FirstOrDefault(x => x.ID_Check == selected);
-
-                if (editCheck != null)
-                {
-                    var editForm = new AddCheckForm(editCheck);
-                    editForm.ShowDialog();
-
-                    InitDatagrid();
-                    dgvSilver.FirstDisplayedScrollingRowIndex = firstRowIndex;
-
-                }
-                else MessageBox.Show("Выберите чек для редактирования");
-            }
+            EditCheck();
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -405,7 +391,7 @@ namespace SilverReports
             InitDatagrid();
         }
 
-        private void dgvSilver_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void EditCheck()
         {
             using (var db = new SilverREContext())
             {
@@ -424,7 +410,13 @@ namespace SilverReports
                     dgvSilver.FirstDisplayedScrollingRowIndex = firstRowIndex;
 
                 }
+                else MessageBox.Show("Выберите чек для редактирования");
             }
+        }
+
+        private void dgvSilver_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            EditCheck();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
