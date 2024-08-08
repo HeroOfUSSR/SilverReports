@@ -104,7 +104,7 @@ namespace SilverReports
                                  Amount_Check = check.Amount_Check,
                                  Norm_Check = check.Norm_Check,
                                  SilverType_Check = db.SilverType.FirstOrDefault(x => x.Code_SilverType == check.SilverType_Check).Title_SilverType,
-                                 Number_Check = check.Number_Check,
+                                 Number_Check = Convert.ToInt32(check.Number_Check),
                                  Coverage_Check = check.Coverage_Check,
                              };
 
@@ -428,8 +428,8 @@ namespace SilverReports
 
             using (var db = new SilverREContext())
             {
-                var chmo = db.Check.OrderByDescending(x => x.Date_Check).ToList();
-                dtFrom.Value = chmo.Last().Date_Check;
+                var dateStart = db.Check.OrderByDescending(x => x.Date_Check).ToList();
+                dtFrom.Value = dateStart.Last().Date_Check;
             }
         }
 

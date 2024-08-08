@@ -28,7 +28,7 @@ namespace SilverReports.Models
 
         public string SilverType_Check { get; set; } = string.Empty;
 
-        public string Number_Check { get; set; } = string.Empty;
+        public int Number_Check { get; set; }
 
         public decimal Coverage_Check { get; set; }
 
